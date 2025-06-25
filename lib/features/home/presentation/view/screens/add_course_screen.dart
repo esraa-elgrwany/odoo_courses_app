@@ -6,8 +6,10 @@ import 'package:courses_app/features/home/presentation/view/widgets/button_widge
 import 'package:courses_app/features/home/presentation/view/widgets/drop_down_container.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/status_dialog.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/text_form_item.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../../core/utils/styles/colors.dart';
 import '../../../data/models/get_know_us_model.dart';
@@ -15,7 +17,7 @@ import '../../../data/models/get_state.dart';
 import '../../view_model/home_cubit.dart';
 import '../widgets/know_us_dialog.dart';
 import '../widgets/state_dialog.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AddCourseScreen extends StatefulWidget {
   static const String routeName = "AddCourse";
 
@@ -58,6 +60,10 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                 surfaceTintColor: Colors.transparent,
                 title: Text(
                   AppLocalizations.of(context)!.addNewCourse,
+                  style: TextStyle(
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w600
+                  ),
                 ),
               ),
               body: SingleChildScrollView(
@@ -72,7 +78,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                           Image.asset(
                             "assets/images/group-students-watching-online-webinar.png",
                             width: double.infinity,
-                            height: 200,
+                            height: 200.h,
                             fit: BoxFit.cover,
                           ),
                           TextFormItem(
@@ -80,9 +86,9 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                               hint: AppLocalizations.of(context)!.name,
                               maxLine: 1,
                               icon: Icons.edit,
-                              validateTxt: "please enter task name"),
+                              validateTxt: "please enter course name"),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           TextFormItem(
                               controller: phoneController,
@@ -91,7 +97,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                               icon: Icons.phone,
                               validateTxt: "please enter your phone number"),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           TextFormItem(
                               controller: ageController,
@@ -100,7 +106,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                               icon: Icons.person,
                               validateTxt: "please enter your age"),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           TextFormItem(
                               controller: cityController,
@@ -109,7 +115,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                               icon: Icons.location_city,
                               validateTxt: "please enter your city"),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           TextFormItem(
                               controller: batchController,
@@ -118,12 +124,14 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                               icon: Icons.numbers,
                               validateTxt: "please enter your batch number"),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(AppLocalizations.of(context)!.gender),
+                              Text(AppLocalizations.of(context)!.gender,style: TextStyle(
+                                fontSize: 18.sp,fontWeight: FontWeight.w600
+                              ),),
                             ],
                           ),
                           Row(
@@ -133,19 +141,25 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                   groupValue: gender,
                                   onChanged: (val) =>
                                       setState(() => gender = val!)),
-                              Text(AppLocalizations.of(context)!.male),
+                              Text(AppLocalizations.of(context)!.male,style: TextStyle(
+                                  fontSize: 16.sp,fontWeight: FontWeight.w500
+                              )),
                               Radio(
                                   value: "female",
                                   groupValue: gender,
                                   onChanged: (val) =>
                                       setState(() => gender = val!)),
-                              Text(AppLocalizations.of(context)!.female),
+                              Text(AppLocalizations.of(context)!.female,style: TextStyle(
+                                  fontSize: 16.sp,fontWeight: FontWeight.w500
+                              )),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(AppLocalizations.of(context)!.workStatus),
+                              Text(AppLocalizations.of(context)!.workStatus,style: TextStyle(
+                                  fontSize: 18.sp,fontWeight: FontWeight.w600
+                              )),
                             ],
                           ),
                           Row(
@@ -155,19 +169,25 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                   groupValue: workStatus,
                                   onChanged: (val) =>
                                       setState(() => workStatus = val!)),
-                              Text(AppLocalizations.of(context)!.work),
+                              Text(AppLocalizations.of(context)!.work,style: TextStyle(
+                                  fontSize: 16.sp,fontWeight: FontWeight.w500
+                              )),
                               Radio(
                                   value: "not_work",
                                   groupValue: workStatus,
                                   onChanged: (val) =>
                                       setState(() => workStatus = val!)),
-                              Text(AppLocalizations.of(context)!.unWork),
+                              Text(AppLocalizations.of(context)!.unWork,style: TextStyle(
+                                  fontSize: 16.sp,fontWeight: FontWeight.w500
+                              )),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(AppLocalizations.of(context)!.paymentMethod),
+                              Text(AppLocalizations.of(context)!.paymentMethod,style: TextStyle(
+                                  fontSize: 18.sp,fontWeight: FontWeight.w600
+                              )),
                             ],
                           ),
                           Row(
@@ -177,17 +197,21 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                   groupValue: payMethod,
                                   onChanged: (val) =>
                                       setState(() => payMethod = val!)),
-                              Text(AppLocalizations.of(context)!.cash),
+                              Text(AppLocalizations.of(context)!.cash,style: TextStyle(
+                                  fontSize: 16.sp,fontWeight: FontWeight.w500
+                              )),
                               Radio(
                                   value: "online",
                                   groupValue: payMethod,
                                   onChanged: (val) =>
                                       setState(() => payMethod = val!)),
-                              Text(AppLocalizations.of(context)!.online),
+                              Text(AppLocalizations.of(context)!.online,style: TextStyle(
+                                  fontSize: 16.sp,fontWeight: FontWeight.w500
+                              )),
                             ],
                           ),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           InkWell(
                               onTap: () {
@@ -196,7 +220,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                               child: DropDownContainer(
                                   text: selectedState?.name ?? AppLocalizations.of(context)!.selectState)),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           InkWell(
                               onTap: () {
@@ -206,7 +230,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                   text: selectedStatus?.name ??
                                       AppLocalizations.of(context)!.selectStatus)),
                           SizedBox(
-                            height: 16,
+                            height: 16.h,
                           ),
                           InkWell(
                               onTap: () {
@@ -216,7 +240,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                   text: selectedKnowUs?.name ??
                                       AppLocalizations.of(context)!.selectHowKnow)),
                           SizedBox(
-                            height: 24,
+                            height: 24.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -226,7 +250,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                   _pickImage();
                                 },
                                 child: Container(
-                                  width: MediaQuery.of(context).size.width / 2.9,
+                                  width: MediaQuery.of(context).size.width / 2.7,
                                   padding: EdgeInsets.all(12),
                                   decoration: BoxDecoration(
                                       borderRadius:
@@ -237,19 +261,19 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                         AppLocalizations.of(context)!.uploadImage,
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16.sp),
                                   )),
                                 ),
                               ),
                               Spacer(),
                               imageFile == null
                                   ? Text("No image selected")
-                                  : Image.file(imageFile!, height: 80,width: 160,),
+                                  : Image.file(imageFile!, height: 80.h,width: 160.w,),
                             ],
                           ),
                           SizedBox(
-                            height: 32,
+                            height: 32.h,
                           ),
                           BlocListener<HomeCubit, HomeState>(
                             listener: (context, state) {
@@ -286,7 +310,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 14),
+                                              fontSize: 16.sp),
                                         ),
                                       ),
                                       backgroundColor: Colors.green,

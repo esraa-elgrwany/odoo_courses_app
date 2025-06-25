@@ -1,11 +1,8 @@
 import 'package:courses_app/features/home/presentation/view/widgets/icon_badge.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../core/utils/styles/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../setting/model_view/setting_cubit.dart';
 import '../../view_model/home_cubit.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class TaskCard extends StatelessWidget{
   int index;
    TaskCard({required this.index});
@@ -42,29 +39,29 @@ class TaskCard extends StatelessWidget{
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                             )),
                       ],
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     Row(
                       children: [
-                        Image.asset("assets/images/project.png",width:24,height: 24,),
-                        SizedBox(width: 4,),
+                        Image.asset("assets/images/project.png",width:24.w,height: 24.h,),
+                        SizedBox(width: 4.w,),
                         Text(
                             task.projectId ??"No Project" ,
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                                )),
                       ],
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     Row(
                       children: [
-                        Image.asset("assets/images/partner.png",width:28,height: 28,),
-                        SizedBox(width: 4,),
+                        Image.asset("assets/images/partner.png",width:28.w,height: 28.h,),
+                        SizedBox(width: 4.w,),
                         Flexible(
                           flex:14,
                           child: Column(
@@ -73,7 +70,10 @@ class TaskCard extends StatelessWidget{
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      )),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500,
+                                  )
+                                      ),
                             ],
                           ),
                         ),

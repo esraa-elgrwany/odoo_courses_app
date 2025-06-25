@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:courses_app/features/home/data/models/add_course_model.dart';
+import 'package:courses_app/features/home/data/models/edit_course_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
 import 'package:courses_app/features/home/data/models/get_status.dart';
@@ -16,6 +17,7 @@ import '../../data/models/get_tasks_model.dart';
 import '../../data/models/get_user_model.dart';
 import '../../data/repo/home_repo.dart';
 import '../../data/repo/home_repo_impl.dart';
+
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -28,13 +30,14 @@ class HomeCubit extends Cubit<HomeState> {
   List<StateResult> states = [];
   List<StatusResult> status = [];
   List<KnowUsResult> knowUs = [];
-  List<TaskResult> tasks= [];
+  List<TaskResult> tasks = [];
+
   HomeCubit() : super(HomeInitial());
 
   getCourses({String query = ""}) async {
     emit(GetCoursesLoading());
-    ApiManager apiManager=ApiManager();
-     HomeRepo homeRepo = HomeRepoImpl(apiManager);
+    ApiManager apiManager = ApiManager();
+    HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getCourses(query: query);
     result.fold((l) {
       emit(GetCoursesError(l));
@@ -44,10 +47,9 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-
   getTasks({String query = ""}) async {
     emit(GetTasksLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getTasks(query: query);
     result.fold((l) {
@@ -60,7 +62,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getUsers({String query = ""}) async {
     emit(GetUserLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getUsers(query: query);
     result.fold((l) {
@@ -73,7 +75,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getProjects({String query = ""}) async {
     emit(GetProjectLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getProjects(query: query);
     result.fold((l) {
@@ -86,7 +88,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getPartners({String query = ""}) async {
     emit(GetPartnerLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getPartner(query: query);
     result.fold((l) {
@@ -99,7 +101,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getStates({String query = ""}) async {
     emit(GetStateLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getState(query: query);
     result.fold((l) {
@@ -112,7 +114,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getStatus({String query = ""}) async {
     emit(GetStatusLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getStatus(query: query);
     result.fold((l) {
@@ -125,7 +127,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getKnowUs({String query = ""}) async {
     emit(GetKnowUsLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.getKnowUs(query: query);
     result.fold((l) {
@@ -136,19 +138,22 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
- addTask({
-   required String name,
-   required int projectId,
-   required int partnerId,
-   required int userId,
-   required String description,
- }) async {
+  addTask({
+    required String name,
+    required int projectId,
+    required int partnerId,
+    required int userId,
+    required String description,
+  }) async {
     emit(AddTaskLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
-    var result = await homeRepo.addTask(name: name,
-        projectId: projectId, partnerId: partnerId,
-        userId: userId, description: description);
+    var result = await homeRepo.addTask(
+        name: name,
+        projectId: projectId,
+        partnerId: partnerId,
+        userId: userId,
+        description: description);
     result.fold((l) {
       emit(AddTaskError(l));
     }, (r) {
@@ -171,11 +176,21 @@ class HomeCubit extends Cubit<HomeState> {
     required String img,
   }) async {
     emit(AddCourseLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
-    var result = await homeRepo.addCourse(name: name,city: city,gender: gender,phone: phone,
-    workStatus: workStatus,payment: payment,stateId: stateId,status: status,knowUs: knowUs,batchNum: batchNum,
-    age: age,img: img);
+    var result = await homeRepo.addCourse(
+        name: name,
+        city: city,
+        gender: gender,
+        phone: phone,
+        workStatus: workStatus,
+        payment: payment,
+        stateId: stateId,
+        status: status,
+        knowUs: knowUs,
+        batchNum: batchNum,
+        age: age,
+        img: img);
     result.fold((l) {
       emit(AddCourseError(l));
     }, (r) {
@@ -185,7 +200,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   deleteCourse({required int courseId}) async {
     emit(DeleteCoursesLoading());
-    ApiManager apiManager=ApiManager();
+    ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
     var result = await homeRepo.deleteCourse(courseId: courseId);
     result.fold((l) {
@@ -198,6 +213,50 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  void editCourse({
+    required int courseId,
+    String? name,
+    String? city,
+    String? gender,
+    String? phone,
+    String? workStatus,
+    String? payment,
+    int? stateId,
+    int? status,
+    int? knowUs,
+    int? batchNum,
+    int? age,
+    String? img,
+    String? note,
+  }) async {
+    emit(EditCoursesLoading());
+
+      final ApiManager apiManager = ApiManager();
+      final HomeRepo homeRepo = HomeRepoImpl(apiManager);
+
+      final result = await homeRepo.editCourse(
+        courseId: courseId,
+        name: name,
+        city: city,
+        gender: gender,
+        phone: phone,
+        workStatus: workStatus,
+        payment: payment,
+        stateId: stateId,
+        status: status,
+        knowUs: knowUs,
+        batchNum: batchNum,
+        age: age,
+        img: img,
+        note: note,
+      );
+
+      result.fold(
+        (failure) => emit(EditCoursesError(failure)),
+        (model) {
+          emit(EditCoursesSuccess(model));
+          getCourses(); // Refresh list after editing
+        },
+      );
+  }
 }
-
-

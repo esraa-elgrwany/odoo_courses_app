@@ -1,6 +1,6 @@
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../data/models/get_status.dart';
 import '../../view_model/home_cubit.dart';
 

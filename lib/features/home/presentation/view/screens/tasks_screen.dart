@@ -6,9 +6,10 @@ import 'package:courses_app/features/home/presentation/view/widgets/floating_but
 import 'package:courses_app/features/home/presentation/view/widgets/search_bar.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/task_card.dart';
 import 'package:courses_app/features/home/presentation/view_model/home_cubit.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TaskScreen extends StatefulWidget {
   static const String routeName = "taskScreen";
 
@@ -34,6 +35,10 @@ class _TaskScreenState extends State<TaskScreen> {
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.tasks,
+          style: TextStyle(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600
+          ),
         ),
         elevation: 0,
         surfaceTintColor: Colors.transparent,

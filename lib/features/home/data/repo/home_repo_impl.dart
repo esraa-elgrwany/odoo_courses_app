@@ -1,6 +1,7 @@
 import 'package:courses_app/core/Failures/Failures.dart';
 import 'package:courses_app/features/home/data/models/add_task_model.dart';
 import 'package:courses_app/features/home/data/models/delete_course.dart';
+import 'package:courses_app/features/home/data/models/edit_course_model.dart';
 import 'package:courses_app/features/home/data/models/get_courses_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
@@ -82,7 +83,7 @@ class HomeRepoImpl implements HomeRepo {
           "kwargs": {
             "domain": query!= null && query.isNotEmpty
                 ? [
-              ["name", "=", query]
+              ["name", "ilike", "%$query%"]
             ]
                 : []
           }
@@ -401,4 +402,63 @@ class HomeRepoImpl implements HomeRepo {
       return Left(ServerFailure("Exception: ${e.toString()}"));
     }
   }
+
+  @override
+  Future<Either<Failures, EditCourseModel>> editCourse({
+    required int courseId,
+    String? name,
+    String? city,
+    String? gender,
+    String? phone,
+    String? workStatus,
+    String? payment,
+    int? stateId,
+    int? status,
+    int? knowUs,
+    int? batchNum,
+    int? age,
+    String? img,
+    String? note,
+  }) async {
+    try {
+      final Map<String, dynamic> fieldsToUpdate = {};
+      if (name != null) fieldsToUpdate["name"] = name;
+      if (stateId != null) fieldsToUpdate["state_id"] = stateId;
+      if (city != null) fieldsToUpdate["city"] = city;
+      if (gender != null) fieldsToUpdate["gender"] = gender;
+      if (status != null) fieldsToUpdate["status"] = status;
+      if (phone != null) fieldsToUpdate["phone"] = phone;
+      if (knowUs != null) fieldsToUpdate["how_know_us"] = knowUs;
+      if (batchNum != null) fieldsToUpdate["batch_num"] = batchNum;
+      if (age != null) fieldsToUpdate["age"] = age;
+      if (workStatus != null) fieldsToUpdate["work_status"] = workStatus;
+      if (payment != null) fieldsToUpdate["pay_method"] = payment;
+      if (img != null) fieldsToUpdate["grad_image"] = img;
+      if (note != null) fieldsToUpdate["note"] = note;
+
+      final Map<String, dynamic> body = {
+        "params": {
+          "model": "booking.managment",
+          "method": "write",
+          "args": [
+            [courseId],
+            fieldsToUpdate,
+          ],
+          "kwargs": {}
+        }
+      };
+
+      Response response = await apiManager.postData(body: body); // <-- use POST
+
+      if (response.statusCode == 200) {
+        EditCourseModel model = EditCourseModel.fromJson(response.data);
+        return Right(model);
+      } else {
+        return Left(ServerFailure("Unexpected HTTP Error: ${response.statusCode}"));
+      }
+    } catch (e) {
+      return Left(ServerFailure("Exception: ${e.toString()}"));
+    }
+  }
+
 }

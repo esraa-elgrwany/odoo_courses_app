@@ -1,8 +1,9 @@
 import 'package:courses_app/features/home/presentation/view/widgets/icon_badge.dart';
 import 'package:courses_app/features/setting/model_view/setting_cubit.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/styles/colors.dart';
 import '../../view_model/home_cubit.dart';
 
@@ -44,42 +45,41 @@ class CourseCard extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 12),
-
+                  SizedBox(height: 12.h),
                   // City
                   Row(
                     children: [
                       Text(
                         "city:",
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
                       //Image.asset("assets/images/cityscape_17359653.png",width:24,height:24,),
-                      SizedBox(width: 6),
+                      SizedBox(width: 6.w),
                       Text(
                         courses[index].city ?? "No City",
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
                     ],
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 12.h),
 
                   // State
                   Row(
                     children: [
                       Text(
                         "state:",
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
                       //Image.asset("assets/images/partner.png",width:24,height:24,),
-                      SizedBox(width: 6),
+                      SizedBox(width: 6.w),
                       Text(
                         courses[index].stateId?[1] ?? "No State",
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
                     ],
                   ),
@@ -87,13 +87,13 @@ class CourseCard extends StatelessWidget {
                     children: [
                       Image.asset(
                         "assets/images/money_14858977.png",
-                        width: 22,
-                        height: 22,
+                        width: 26.w,
+                        height: 26.h,
                       ),
-                      SizedBox(width: 6),
+                      SizedBox(width: 6.w),
                       Text(
                         courses[index].payMethod ?? "No Payment",
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
                       Spacer(),
                       BlocConsumer<HomeCubit, HomeState>(
@@ -150,8 +150,8 @@ class CourseCard extends StatelessWidget {
                           return IconButton(
                               icon: Image.asset(
                                 "assets/images/delete_8567757.png",
-                                width: 24,
-                                height: 24,
+                                width: 26.w,
+                                height: 26.h,
                               ),
                               onPressed: () => {
                                     showDialog(

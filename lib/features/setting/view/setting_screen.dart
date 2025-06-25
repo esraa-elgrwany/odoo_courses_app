@@ -1,8 +1,8 @@
 import 'package:courses_app/features/auth/presentation/view/login_screen.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/cache/shared_preferences.dart';
 import '../../../core/utils/styles/colors.dart';
 import '../model_view/setting_cubit.dart';

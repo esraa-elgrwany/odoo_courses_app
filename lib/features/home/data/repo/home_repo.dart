@@ -1,4 +1,5 @@
 import 'package:courses_app/features/home/data/models/delete_course.dart';
+import 'package:courses_app/features/home/data/models/edit_course_model.dart';
 import 'package:courses_app/features/home/data/models/get_courses_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
@@ -28,6 +29,22 @@ abstract class HomeRepo {
     required int batchNum,
     required int age,
     required String img,
+  });
+  Future<Either<Failures, EditCourseModel>> editCourse({
+    required int courseId,
+    String? name,
+    String? city,
+    String? gender,
+    String? phone,
+    String? workStatus,
+    String? payment,
+    int? stateId,
+    int? status,
+    int? knowUs,
+    int? batchNum,
+    int? age,
+    String? img,
+    String? note,
   });
   Future<Either<Failures, AddTaskModel>> addTask({
     required String name,

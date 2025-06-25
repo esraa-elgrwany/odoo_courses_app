@@ -1,520 +1,232 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:courses_app/core/utils/styles/colors.dart';
 import 'package:courses_app/features/home/data/models/get_courses_model.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/edit_phone_row.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/editable_field.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/gender_row.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/payment_row.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/state_row.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/work_row.dart';
+import 'package:courses_app/features/home/presentation/view_model/home_cubit.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CourseDetailsScreen extends StatelessWidget {
+import '../widgets/know_us_row.dart';
+import '../widgets/status_row.dart';
+
+class CourseDetailsScreen extends StatefulWidget {
   static const String routeName = "courseDetailsScreen";
 
   const CourseDetailsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    CoursesResult args =
-        ModalRoute.of(context)?.settings.arguments as CoursesResult;
-    Uint8List? bytes;
+  State<CourseDetailsScreen> createState() => _CourseDetailsScreenState();
+}
 
+class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
+  late CoursesResult args;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController paymentController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController batchController = TextEditingController();
+  final TextEditingController knowUsController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    args = ModalRoute.of(context)!.settings.arguments as CoursesResult;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Uint8List? bytes;
     if (args.gradImage != null && args.gradImage!.isNotEmpty) {
       try {
         bytes = base64Decode(args.gradImage!);
-      } catch (e) {
-        bytes = null;
-      }
+      } catch (_) {}
     }
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        surfaceTintColor: Colors.transparent,
-        title: Text(
-          AppLocalizations.of(context)!.courseDetails,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Center(
+
+    return BlocProvider(
+      create: (_) => HomeCubit(),
+      child: BlocListener<HomeCubit, HomeState>(
+        listener: (context, state) {
+          if (state is EditCoursesError) {
+            Navigator.of(context).pop();
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                backgroundColor: Colors.grey[200],
+                title: Text("Error", style: TextStyle(color: primaryColor)),
+                content: Text(state.failure.errormsg, style: TextStyle(color: primaryColor)),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Okay", style: TextStyle(color: Colors.white))),
+                ],
+              ),
+            );
+          } else if (state is EditCoursesLoading) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => const Center(child: CircularProgressIndicator()),
+            );
+          } else if (state is EditCoursesSuccess) {
+            Navigator.of(context).pop();
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Center(
+                    child: Text(
+                      "Course Edited Successfully",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ),
+                  backgroundColor: Colors.green,
+                  duration: const Duration(seconds: 4),
+                  behavior: SnackBarBehavior.floating,
+                  margin: const EdgeInsets.all(24),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
+                ),
+              );
+            });
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            surfaceTintColor: Colors.transparent,
+            title: Text(AppLocalizations.of(context)!.courseDetails),
+          ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                bytes != null
-                    ? Image.memory(
-                        bytes,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: 240,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(Icons.error);
-                        },
-                      )
-                    : const Icon(Icons.image_not_supported, size: 60),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/id-card_6785365.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.name,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Flexible(
-                        flex: 14,
-                        child: Column(children: [
-                          Text(
-                            args.name ?? "no name",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          )
-                        ]))
-                  ],
+                if (bytes != null)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.memory(bytes, width: double.infinity, height: 240.h, fit: BoxFit.cover),
+                  )
+                else
+                  const Icon(Icons.image_not_supported, size: 60),
+                SizedBox(height: 16.h),
+                EditableField(
+                  controller: nameController,
+                  label: AppLocalizations.of(context)!.name,
+                  iconPath: "assets/images/id-card_6785365.png",
+                  initialValue: args.name ?? "",
+                  onSave: (value) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, name: nameController.text);
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/telephone_18112096.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.phone,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      args.phone ?? "no phone",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    ),
-                    Spacer(),
-                    InkWell(
-                        onTap: () {
-                          _openWhatsApp(args.phone);
-                        },
-                        child: Image.asset(
-                          "assets/images/whatsapp_3670051.png",
-                          width: 40,
-                          height: 40,
-                        )),
-                  ],
+                SizedBox(height: 8.h,),
+                CoursePhoneRow(args: args, controller: phoneController),
+                SizedBox(height: 8.h,),
+                EditableField(
+                  controller: ageController,
+                  label: AppLocalizations.of(context)!.age,
+                  iconPath: "assets/images/calendar_3941031.png",
+                  initialValue: args.age?.toString() ?? "",
+                  keyboardType: TextInputType.number,
+                  onSave: (value) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, age: int.tryParse(ageController.text));
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/money_14858977.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.paymentMethod,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      args.payMethod ?? "no payment method",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
+                SizedBox(height: 8.h,),
+                EditableField(
+                  controller: cityController,
+                  label: AppLocalizations.of(context)!.city,
+                  iconPath: "assets/images/city_9087077.png",
+                  initialValue: args.city ?? "",
+                  onSave: (value) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, city: cityController.text);
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/calendar_3941031.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.age,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      "${args.age ?? 0}",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
+                SizedBox(height: 8.h,),
+                EditableField(
+                  controller: batchController,
+                  label: AppLocalizations.of(context)!.batchNum,
+                  iconPath: "assets/images/ranking_1199434.png",
+                  initialValue: (args.batchNum ?? 0).toString(),
+                  onSave: (value) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, batchNum: int.tryParse(batchController.text));
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/map_3270996.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.state,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Flexible(
-                        flex: 14,
-                        child: Column(children: [
-                          Text(
-                            args.stateId?[1] ?? "no state",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          )
-                        ]))
-                  ],
+                SizedBox(height: 8.h,),
+                EditableField(
+                  controller: noteController,
+                  label: "note",
+                  iconPath: "assets/images/memo_17641336.png",
+                  initialValue: args.note ?? "",
+                  onSave: (value) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, note: noteController.text);
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/status_4727553.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.status,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Flexible(
-                        flex: 14,
-                        child: Column(children: [
-                          Text(
-                            args.status?[1] ?? "no status",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          )
-                        ]))
-                  ],
+                SizedBox(height: 8.h,),
+                StateRow(
+                  iconPath: "assets/images/map_3270996.png",
+                  label: AppLocalizations.of(context)!.state,
+                  initialValue: args.stateId?[1] ?? "",
+                  onSave: (state) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, stateId: state.id);
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/city_9087077.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.city,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      args.city ?? "no city",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
+                SizedBox(height: 8.h,),
+                StatusRow(
+                  iconPath: "assets/images/status_4727553.png",
+                  label: AppLocalizations.of(context)!.status,
+                  initialValue: args.status?[1] ?? "",
+                  onSave: (status) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, stateId: status.id);
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/ranking_1199434.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.batchNum,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      "${args.batchNum}",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
+                SizedBox(height: 8.h,),
+               KnowUsRow(
+                  iconPath: "assets/images/business_1732637.png",
+                  label: AppLocalizations.of(context)!.know,
+                  initialValue: args.howKnowUs?[1] ?? "",
+                  onSave: (knowUs) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, knowUs: knowUs.id);
+                  },
                 ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
+                PaymentRow(args: args),
+                GenderRow(args: args),
+                WorkRow(args: args),
+                SizedBox(height: 8.h,),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 40.h,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
                           color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/gender_2102925.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.gender,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/calendar_12354235.png", width: 24.w, height: 24.h),
+                            SizedBox(width: 4.w),
+                            Text("booking responsible", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      args.gender ?? "no gender",
-                      style: TextStyle(
-                        fontSize: 16,
+                      SizedBox(width: 8.w),
+                      Text(
+                        args.bookingResponsable?[1] ?? "no data",
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/online-surveys_18091734.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.workStatus,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      args.workStatus ?? "no work status",
-                      style: TextStyle(
-                        fontSize: 16,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      height: 40,
-                      padding: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          color: secondPrimary,
-                          borderRadius: BorderRadiusDirectional.circular(16)),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/images/business_1732637.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            AppLocalizations.of(context)!.know,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Flexible(
-                        flex: 14,
-                        child: Column(children: [
-                          Text(
-                            args.howKnowUs?[1] ?? "no data",
-                            style: TextStyle(
-                              fontSize: 16,
-                            ),
-                          )
-                        ]))
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -523,23 +235,5 @@ class CourseDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
-  void _openWhatsApp(String? phone) async {
-    if (phone == null || phone.isEmpty) {
-      return;
-    }
-    String formattedPhone =
-        phone.replaceAll(RegExp(r'\D'), ''); // Remove non-digits
-
-    if (!formattedPhone.startsWith("1") && !formattedPhone.startsWith("2")) {
-      formattedPhone =
-          "20$formattedPhone"; // Add country code if missing (Example: Egypt)
-    }
-
-    final Uri whatsappUrl = Uri.parse("https://wa.me/$formattedPhone");
-
-    if (await canLaunchUrl(whatsappUrl)) {
-      await launchUrl(whatsappUrl, mode: LaunchMode.externalApplication);
-    } else {}
-  }
 }
+

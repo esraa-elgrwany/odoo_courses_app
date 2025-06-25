@@ -1,6 +1,7 @@
 
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:html/parser.dart';
 import '../../../../../core/utils/styles/colors.dart';
 import '../../../data/models/get_tasks_model.dart';
@@ -19,6 +20,10 @@ class TaskDetailsScreen extends StatelessWidget{
         surfaceTintColor: Colors.transparent,
         title: Text(
           AppLocalizations.of(context)!.taskDetails,
+          style: TextStyle(
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w600
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -30,37 +35,37 @@ class TaskDetailsScreen extends StatelessWidget{
                 Image.asset(
                   "assets/images/add_task4.png",
                   width: double.infinity,
-                  height: 240,
+                  height: 240.h,
                   fit: BoxFit.cover,
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: 16.h),
                 Row(
                   children: [
                     Container(
-                    height: 40,
-                    padding: EdgeInsets.all(10),
+                    height: 40.h,
+                    padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         color: secondPrimary,
                         borderRadius: BorderRadiusDirectional.circular(16)
                     ),
                     child:Row(
                       children: [
-                        Image.asset("assets/images/id-card_6785365.png",width: 24,height: 24,),
-                        SizedBox(width: 4,),
+                        Image.asset("assets/images/id-card_6785365.png",width: 24.w,height: 24.h,),
+                        SizedBox(width: 4.w,),
                         Text(AppLocalizations.of(context)!.name,style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),),
                       ],
                     ),),
-                    SizedBox(width: 8,),
+                    SizedBox(width: 8.w,),
                   Flexible(
               flex:14,
               child: Column(children:[Text(args.name??"no name",style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                     ),)])),
                ]),
-                const SizedBox(height: 16),
+                 SizedBox(height: 16.h),
                 Row(
                   children: [Container(
                     height: 40,

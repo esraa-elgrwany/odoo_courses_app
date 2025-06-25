@@ -162,3 +162,14 @@ class DeleteCoursesError extends HomeState {
 
   DeleteCoursesError(this.failures);
 }
+class EditCoursesLoading extends HomeState {}
+
+class EditCoursesSuccess extends HomeState {
+   EditCourseModel model;
+  EditCoursesSuccess(this.model);
+}
+
+class EditCoursesError extends HomeState {
+  final Failures failure;
+  EditCoursesError(this.failure);
+}

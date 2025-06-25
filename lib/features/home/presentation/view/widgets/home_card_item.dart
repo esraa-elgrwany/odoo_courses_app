@@ -14,7 +14,7 @@ class HomeCardItem extends StatelessWidget{
         Navigator.pushNamed(context,route);
       },
       child: Container(
-        height: 200.h,
+        height: 260.h,
         child: Card(
           color: Theme.of(context).colorScheme.onBackground,
           elevation: 4,
@@ -28,14 +28,14 @@ class HomeCardItem extends StatelessWidget{
               children: [
                 Image.asset(
                   imageUrl,
-                  height: 80,
+                  height: 100.h,
                   fit: BoxFit.cover,
                 ),
                 SizedBox(height:16,),
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

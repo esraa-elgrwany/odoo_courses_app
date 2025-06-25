@@ -1,5 +1,6 @@
 import 'package:courses_app/core/utils/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ButtonWidget extends StatelessWidget{
   String txt;
@@ -20,7 +21,7 @@ class ButtonWidget extends StatelessWidget{
       child: Center(
           child: Text(
            txt,
-            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 16),
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 20.sp),
           )),
     );
   }

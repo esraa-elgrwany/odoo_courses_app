@@ -59,7 +59,7 @@ class CoursesResult {
     gender = json['gender'];
     status = json['status'] != null ? json['status'].cast<dynamic>() : [];
     phone = json['phone'];
-    bookingResponsable = json['booking_responsable'] != null ? json['booking_responsable'].cast<int>() : [];
+    bookingResponsable = json['booking_responsable'] != null? json['booking_responsable'].cast<dynamic>() : [];
     howKnowUs = json['how_know_us'] != null ? json['how_know_us'].cast<dynamic>() : [];
     batchNum = json['batch_num'];
     age = json['age'];
@@ -84,7 +84,7 @@ class CoursesResult {
   String? gender;
   List<dynamic>? status;
   String? phone;
-  List<int>? bookingResponsable;
+  List<dynamic>? bookingResponsable;
   List<dynamic>? howKnowUs;
   int? batchNum;
   int? age;

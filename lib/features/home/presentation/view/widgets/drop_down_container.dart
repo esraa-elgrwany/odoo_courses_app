@@ -1,5 +1,6 @@
 import 'package:courses_app/core/utils/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DropDownContainer extends StatelessWidget{
   String text;
@@ -18,14 +19,14 @@ class DropDownContainer extends StatelessWidget{
         children: [
           Text(
             text,
-            style: TextStyle(color:Colors.black, fontSize: 14,
+            style: TextStyle(color:Colors.black, fontSize: 16.sp,
                 fontWeight: FontWeight.w500),
           ),
           Spacer(),
           InkWell(
             onTap: () {
             },
-              child: Icon(Icons.arrow_drop_down_circle_outlined,size:20,color: primaryColor)),
+              child: Icon(Icons.arrow_drop_down_circle_outlined,size:26.sp,color: primaryColor)),
         ],
       ),
     );

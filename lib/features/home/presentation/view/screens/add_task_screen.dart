@@ -4,9 +4,10 @@ import 'package:courses_app/features/home/presentation/view/widgets/button_widge
 import 'package:courses_app/features/home/presentation/view/widgets/drop_down_container.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/partner_dialog.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/text_form_item.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../data/models/get_partner_model.dart';
 import '../../../data/models/get_project_model.dart';
 import '../../../data/models/get_user_model.dart';
@@ -50,6 +51,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   surfaceTintColor: Colors.transparent,
                   title: Text(
                     AppLocalizations.of(context)!.addNewTask,
+                    style: TextStyle(
+                        fontSize: 22.sp,
+                        fontWeight: FontWeight.w600
+                    ),
                   ),
                 ),
                 body: SingleChildScrollView(
@@ -64,8 +69,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             Image.asset(
                               "assets/images/add_task4.png",
                               width: double.infinity,
-                              height: 240,
+                              height: 240.h,
                               fit: BoxFit.cover,
+                            ),
+                            SizedBox(
+                              height:8.h,
                             ),
                             TextFormItem(
                                 controller: nameController,
@@ -74,16 +82,16 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 icon: Icons.edit,
                                 validateTxt: "please enter task name"),
                             SizedBox(
-                              height: 16,
+                              height: 16.h,
                             ),
                             TextFormItem(
                                 controller: descriptionController,
                                 hint: AppLocalizations.of(context)!.description,
-                                maxLine: 2,
+                                maxLine: 1,
                                 icon: Icons.edit,
                                 validateTxt: "please enter task description"),
                             SizedBox(
-                              height: 16,
+                              height: 16.h,
                             ),
                             InkWell(
                                 onTap: () {
@@ -92,7 +100,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 child: DropDownContainer(
                                     text: selectedUser?.name ?? AppLocalizations.of(context)!.selectUser)),
                             SizedBox(
-                              height: 16,
+                              height: 16.h,
                             ),
                             InkWell(
                                 onTap: () {
@@ -102,7 +110,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                     text: selectedProject?.name ??
                                         AppLocalizations.of(context)!.selectProject)),
                             SizedBox(
-                              height: 16,
+                              height: 16.h,
                             ),
                             InkWell(
                                 onTap: () {
@@ -112,7 +120,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                     text: selectedPartner?.name ??
                                         AppLocalizations.of(context)!.selectPartner)),
                             SizedBox(
-                              height: 32,
+                              height: 32.h,
                             ),
                             BlocConsumer<HomeCubit, HomeState>(
                               listener: (context, state) {
@@ -149,7 +157,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 14),
+                                                fontSize: 16.sp),
                                           ),
                                         ),
                                         backgroundColor: Colors.green,

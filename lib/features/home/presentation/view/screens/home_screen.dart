@@ -2,9 +2,10 @@ import 'package:courses_app/core/utils/styles/colors.dart';
 import 'package:courses_app/features/auth/presentation/view/login_screen.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/home_card_item.dart';
 import 'package:courses_app/features/setting/view/setting_screen.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/cache/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class HomeScreen extends StatefulWidget{
   static const String routeName="homeScreen";
   const HomeScreen({super.key});
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
-              height: 160,
+              height: 160.h,
              width: double.infinity,
               decoration: BoxDecoration(
                 image: DecorationImage(image: AssetImage("assets/images/course splash.jpg"),fit: BoxFit.cover),
@@ -43,21 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
                    bottomRight: Radius.circular(50),
                  )
               ),
-              child: Center(child: Image.asset("assets/images/شريف زناتى since 2010 white 1.png",width:80,height:120,fit: BoxFit.cover,)),
+              child: Center(child: Image.asset("assets/images/شريف زناتى since 2010 white 1.png",width:100.w,height:130.h,
+                fit: BoxFit.cover,)),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height:8),
+                  SizedBox(height:8.h),
                   Row(
                     children: [
-                      /*CircleAvatar(
-                        backgroundColor: Colors.blue[100],
-                           radius: 24,
-                          child: Image.asset("assets/images/task-list (1).png",width: 40,height: 40,)),
-                      const SizedBox(width: 12),*/
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,11 +62,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               AppLocalizations.of(context)!.hello,
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 20.sp, fontWeight: FontWeight.bold),
                             ),
                             Text(AppLocalizations.of(context)!.welcome,
                               style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16.sp,
 
                               )),
                           ],
@@ -80,16 +77,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           Navigator.pushNamed(
                               context, SettingScreen.routeName);
-                        }, icon:Icon(Icons.settings,size:30,),color: Colors.black,),
+                        }, icon:Icon(Icons.settings,size:32.sp,),color: Colors.black,),
                     ],
                   ),
-                  SizedBox(height:8),
+                  SizedBox(height:8.h),
                   Container(
                     height: MediaQuery.of(context).size.height/2,
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount:2,
-                        childAspectRatio:1,
+                        childAspectRatio:.9,
                         crossAxisSpacing: 12,
                         mainAxisSpacing: 12,
                       ),

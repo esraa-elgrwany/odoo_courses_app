@@ -2,11 +2,13 @@ import 'package:courses_app/features/home/presentation/view/screens/course_detai
 import 'package:courses_app/features/home/presentation/view/widgets/course_card.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/search_bar.dart';
 import 'package:courses_app/features/home/presentation/view_model/home_cubit.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/floating_button.dart';
 import 'add_course_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class CourseScreen extends StatefulWidget {
   static const String routeName = "courseScreen";
@@ -31,6 +33,10 @@ class _CourseScreenState extends State<CourseScreen> {
       appBar: AppBar(
         title: Text(
             AppLocalizations.of(context)!.courses,
+          style: TextStyle(
+            fontSize: 22.sp,
+            fontWeight: FontWeight.w600
+          ),
         ),
         elevation: 0,
         surfaceTintColor: Colors.transparent,
@@ -43,6 +49,7 @@ class _CourseScreenState extends State<CourseScreen> {
               },
               child: Icon(
                 Icons.arrow_back_outlined,
+                size: 24.sp,
               )),
         ),
       ),

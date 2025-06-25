@@ -198,6 +198,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                 vertical: 12,
                                                                 horizontal: 4)),
                                                   );
+                                                  CacheData.saveId(data:state.loginModel.result?.partnerDisplayName??"no partner",
+                                                      key: "responsible");
                                                   Navigator.push(
                                                       context,
                                                       MaterialPageRoute(

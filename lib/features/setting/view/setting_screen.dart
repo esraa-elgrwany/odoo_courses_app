@@ -143,6 +143,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   CacheData.removeData("userId");
                                   CacheData.removeData("password");
                                   CacheData.removeData("sessionId");
+                                  CacheData.removeData("responsible");
                                   Navigator.pushReplacementNamed(
                                       context, LoginScreen.routeName);
                                 },

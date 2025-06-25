@@ -248,6 +248,12 @@ abstract class AppLocalizations {
   /// **'city'**
   String get city;
 
+  /// No description provided for @note.
+  ///
+  /// In en, this message translates to:
+  /// **'note'**
+  String get note;
+
   /// No description provided for @batchNum.
   ///
   /// In en, this message translates to:

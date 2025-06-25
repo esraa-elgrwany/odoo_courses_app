@@ -44,7 +44,7 @@ class _StatusRowState extends State<StatusRow> {
           onStatusSelected: (StatusResult newStatus) {
             setState(() {
               selectedStatus = newStatus;
-              selectedStatusName = newStatus.name!;
+              selectedStatusName = newStatus.name??"no name";
               hasChanged = true;
             });
           },

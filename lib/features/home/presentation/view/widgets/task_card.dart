@@ -78,7 +78,24 @@ class TaskCard extends StatelessWidget{
                           ),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height: 12.h),
+                    Row(
+                      children: [
+                        Text("stage: ",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                            )
+                        ),
+                        Text(task.stage??"no stage",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            )
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

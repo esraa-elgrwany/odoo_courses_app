@@ -50,8 +50,10 @@ class _GenderRowState extends State<GenderRow> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           height: 40.h,
@@ -71,10 +73,9 @@ class _GenderRowState extends State<GenderRow> {
             ],
           ),
         ),
+        SizedBox(width: 8.w),
         Expanded(
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 12,
+          child: Row(
             children: [
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -84,11 +85,13 @@ class _GenderRowState extends State<GenderRow> {
                     groupValue: selectedGender,
                     onChanged: _onGenderChanged,
                   ),
-                  Text(AppLocalizations.of(context)!.male,style: TextStyle(
-                      fontSize: 14.sp
-                  ),),
+                  Text(
+                    AppLocalizations.of(context)!.male,
+                    style: TextStyle(fontSize: 14.sp),
+                  ),
                 ],
               ),
+              SizedBox(width: 12.w),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -97,17 +100,18 @@ class _GenderRowState extends State<GenderRow> {
                     groupValue: selectedGender,
                     onChanged: _onGenderChanged,
                   ),
-                  Text(AppLocalizations.of(context)!.female,style: TextStyle(
-                      fontSize: 14.sp
-                  ),),
+                  Text(
+                    AppLocalizations.of(context)!.female,
+                    style: TextStyle(fontSize: 14.sp),
+                  ),
                 ],
               ),
+              const Spacer(),
               if (hasChanged)
                 InkWell(
-                    onTap: () {
-                      _saveGender();
-                    },
-                    child: Icon(Icons.check, color: Colors.green,size:24,)),
+                  onTap: _saveGender,
+                  child: Icon(Icons.check, color: Colors.green, size: 24),
+                ),
             ],
           ),
         ),

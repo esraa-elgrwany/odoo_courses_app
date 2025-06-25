@@ -1,6 +1,11 @@
+import 'package:courses_app/core/utils/styles/colors.dart';
+import 'package:courses_app/features/home/data/models/get_state.dart';
+import 'package:courses_app/features/home/data/models/get_status.dart';
 import 'package:courses_app/features/home/presentation/view/screens/course_details_screen.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/course_card.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/search_bar.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/state_dialog.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/status_dialog.dart';
 import 'package:courses_app/features/home/presentation/view_model/home_cubit.dart';
 import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +26,10 @@ class CourseScreen extends StatefulWidget {
 
 class _CourseScreenState extends State<CourseScreen> {
   TextEditingController searchController = TextEditingController();
+  String searchCategory="name";
+  String ?searchBy;
+  StateResult? selectedState;
+  StatusResult? selectedStatus;
   @override
   void initState() {
     context.read<HomeCubit>().getCourses();
@@ -56,20 +65,87 @@ class _CourseScreenState extends State<CourseScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SearchBarWidget(
-              controller: searchController,
-              onSearch: (query) {
-                if (searchController.text.isNotEmpty) {
-                  context.read<HomeCubit>().getCourses(query: searchController.text);
-                }
-              },
-              onClear: () {
-                setState(() {
-                    searchController.clear();
-                    context.read<HomeCubit>().getCourses();
-                });
-              },
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: 16,
+                        right:16
+                    ),
+                    child:
+                    DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        labelText: 'Search by',
+                        labelStyle:TextStyle(fontSize: 14.sp,color:Colors.black) ,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: secondPrimary)),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: secondPrimary)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: secondPrimary)),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      ),
+                      value: searchBy,
+                      onChanged: (value) {
+                        setState(() {
+                          searchBy = value;
+                          if(value=="name"){
+                            searchCategory = "name";
+                          }else if(value=="state"){
+                            searchCategory ="state_id";
+                            _showStateSelectionDialog();
+                          }else if(value=="status"){
+                            searchCategory ="status";
+                            _showStatusSelectionDialog();
+                          }else if(value=="booking responsible"){
+                            searchCategory ="booking_responsable";
+                          }else if(value=="batch number"){
+                            searchCategory ="batch_num";
+                          }
+                        });
+                      },
+                      dropdownColor: Colors.grey[100],
+                      iconEnabledColor: primaryColor,
+                      style: TextStyle(fontSize: 16.sp,color: Colors.black),
+                      items: [
+                        'name',
+                        'state',
+                        'status',
+                        'booking responsible',
+                        'batch number',
+                      ].map((category) {
+                        return DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  SearchBarWidget(
+                    controller: searchController,
+                    onSearch: (query) {
+                      if (searchController.text.isNotEmpty) {
+                        context.read<HomeCubit>().getCourses(query: searchController.text,searchCat: searchCategory);
+                      }else {
+                        context.read<HomeCubit>().getCourses();
+                      }
+                    },
+                    onClear: () {
+                      setState(() {
+                          searchController.clear();
+                          context.read<HomeCubit>().getCourses();
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 8,
@@ -135,4 +211,47 @@ class _CourseScreenState extends State<CourseScreen> {
       floatingActionButton: FloatingButton(AddCourseScreen.routeName),
     );
   }
+  void _showStatusSelectionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => BlocProvider(
+        create: (context) => HomeCubit()..getStatus(),
+        child: StatusDialog(
+          onStatusSelected: (status) {
+            setState(() {
+              selectedStatus = status;
+              searchCategory = "status";
+              searchBy = "status";
+            });
+            context.read<HomeCubit>().getCourses(
+              query: status.name ?? "",
+              searchCat: "status",
+            );
+          },
+        ),
+      ),
+    );
+  }
+  void _showStateSelectionDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => BlocProvider(
+        create: (context) => HomeCubit()..getStates(),
+        child: StateDialog(
+          onStateSelected: (state) {
+            setState(() {
+              selectedState = state;
+              searchCategory = "state_id";
+              searchBy = "state";
+            });
+            context.read<HomeCubit>().getCourses(
+              query: state.name??"",
+              searchCat: "state_id",
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
+

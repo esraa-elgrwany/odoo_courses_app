@@ -84,6 +84,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get city => 'المدينة';
 
   @override
+  String get note => 'ملاحظة';
+
+  @override
   String get batchNum => 'رقم الدفعة';
 
   @override

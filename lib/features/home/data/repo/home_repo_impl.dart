@@ -12,7 +12,7 @@ import 'package:courses_app/features/home/data/models/get_tasks_model.dart';
 import 'package:courses_app/features/home/data/models/get_user_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../../../core/api_Services/api-manager.dart';
+import '../../../../core/api_services/api-manager.dart';
 import '../models/add_course_model.dart';
 import 'home_repo.dart';
 
@@ -23,16 +23,15 @@ class HomeRepoImpl implements HomeRepo {
 
   @override
   Future<Either<Failures, GetCoursesModel>> getCourses(
-      {String query = ""}) async {
+      {String query = "",String searchCat="name"}) async {
     try {
       final Map<String, dynamic> body = {
         "params": {
           "model": "booking.managment",
           "method": "search_read",
           "args": [
-            [
-              ["name", "ilike", "%$query%"],
-            ]
+      query!= null && query.isNotEmpty?
+      [[searchCat, "ilike", "%$query%"]]:[]
           ],
           "kwargs": {
             "fields": [
@@ -70,7 +69,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failures, GetTasksModel>> getTasks({String query = ""}) async {
+  Future<Either<Failures, GetTasksModel>> getTasks({String query = "",String searchCat=""}) async {
     try {
       final Map<String, dynamic> body = {
         "params": {
@@ -83,15 +82,15 @@ class HomeRepoImpl implements HomeRepo {
           "kwargs": {
             "domain": query!= null && query.isNotEmpty
                 ? [
-              ["name", "ilike", "%$query%"]
+              [searchCat, "ilike", "%$query%"]
             ]
                 : []
           }
         }
       };
-      print("Request Body: $body");  // Log the request body
+      print("Request Body: $body");
       Response response = await apiManager.getData(data: body);
-      print("task Response: ${response.data}");  // Log the response
+      print("task Response: ${response.data}");
       GetTasksModel model = GetTasksModel.fromJson(response.data);
       print("get tasks++++++++${response.data}");
       if (response.statusCode == 200) {
@@ -109,6 +108,7 @@ class HomeRepoImpl implements HomeRepo {
   Future<Either<Failures, AddCourseModel>> addCourse({
     required String name,
     required String city,
+    required String note,
     required String gender,
     required String phone,
     required String workStatus,
@@ -130,6 +130,7 @@ class HomeRepoImpl implements HomeRepo {
               "name": name,
               "state_id": stateId,
               "city": city,
+              "note":note,
               "gender": gender,
               "status": status,
               "phone": phone,

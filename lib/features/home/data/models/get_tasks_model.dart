@@ -38,7 +38,9 @@ class TaskResult {
     this.partnerId,
     this.userIds,
     this.createUid,
-    this.description,});
+    this.description,
+    this.deadline,
+    this.stage});
 
   TaskResult.fromJson(dynamic json) {
     id = json['id'];
@@ -59,6 +61,9 @@ class TaskResult {
     userIds = json['user_ids'] is List ? List<int>.from(json['user_ids']) : [];*/
     createUid = json['create_uid'] is String ? json['create_uid'] : null;
     description = json['description'] is String ? json['description'] : null;
+    deadline = json['date_deadline'] is String ? json['date_deadline'] : null;
+    stage = json['stage'] is String ? json['stage'] : null;
+
   }
   int? id;
   String? name;
@@ -67,6 +72,8 @@ class TaskResult {
   String? partnerId;
   String? createUid;
   String? description;
+  String? deadline;
+  String? stage;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -79,6 +86,8 @@ class TaskResult {
     map['partner_id'] = partnerId;
     map['create_uid'] = createUid;
     map['description'] = description;
+    map['date_deadline'] = deadline;
+    map['stage'] = stage;
     return map;
   }
 

@@ -6,8 +6,8 @@ import 'package:courses_app/features/home/data/models/get_partner_model.dart';
 import 'package:courses_app/features/home/data/models/get_status.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
-import '../../../../core/api_Services/api-manager.dart';
 import '../../../../core/Failures/Failures.dart';
+import '../../../../core/api_services/api-manager.dart';
 import '../../data/models/add_task_model.dart';
 import '../../data/models/delete_course.dart';
 import '../../data/models/get_courses_model.dart';
@@ -34,11 +34,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit() : super(HomeInitial());
 
-  getCourses({String query = ""}) async {
+  getCourses({String query = "",String searchCat = ""}) async {
     emit(GetCoursesLoading());
     ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
-    var result = await homeRepo.getCourses(query: query);
+    var result = await homeRepo.getCourses(query: query,searchCat: searchCat);
     result.fold((l) {
       emit(GetCoursesError(l));
     }, (r) {
@@ -47,11 +47,11 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  getTasks({String query = ""}) async {
+  getTasks({String query = "",String searchCat = ""}) async {
     emit(GetTasksLoading());
     ApiManager apiManager = ApiManager();
     HomeRepo homeRepo = HomeRepoImpl(apiManager);
-    var result = await homeRepo.getTasks(query: query);
+    var result = await homeRepo.getTasks(query: query,searchCat: searchCat);
     result.fold((l) {
       emit(GetTasksError(l));
     }, (r) {
@@ -173,6 +173,7 @@ class HomeCubit extends Cubit<HomeState> {
     required int knowUs,
     required int batchNum,
     required int age,
+    required String note,
     required String img,
   }) async {
     emit(AddCourseLoading());
@@ -181,6 +182,7 @@ class HomeCubit extends Cubit<HomeState> {
     var result = await homeRepo.addCourse(
         name: name,
         city: city,
+        note: note,
         gender: gender,
         phone: phone,
         workStatus: workStatus,

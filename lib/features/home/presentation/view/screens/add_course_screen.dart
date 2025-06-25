@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:courses_app/core/cache/shared_preferences.dart';
 import 'package:courses_app/features/home/data/models/get_status.dart';
 import 'package:courses_app/features/home/presentation/view/screens/courses_screen.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/button_widget.dart';
@@ -40,6 +41,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   final TextEditingController batchController = TextEditingController();
+  final TextEditingController noteController = TextEditingController();
   String? gender;
   String?  workStatus;
   String? payMethod;
@@ -123,6 +125,15 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                               maxLine: 1,
                               icon: Icons.numbers,
                               validateTxt: "please enter your batch number"),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          TextFormItem(
+                              controller: noteController,
+                              hint: AppLocalizations.of(context)!.note,
+                              maxLine: 1,
+                              icon: Icons.text_fields_rounded,
+                              validateTxt: "please enter your note"),
                           SizedBox(
                             height: 16.h,
                           ),
@@ -240,6 +251,27 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                   text: selectedKnowUs?.name ??
                                       AppLocalizations.of(context)!.selectHowKnow)),
                           SizedBox(
+                            height: 16.h,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                height: 48.h,
+                                padding: const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: secondPrimary,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(child: Text("booking responsible", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold))),
+                              ),
+                              SizedBox(width:16.w),
+                              Text(
+                               CacheData.getData(key: "responsible"),
+                                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
                             height: 24.h,
                           ),
                           Row(
@@ -338,7 +370,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                                       statusSelected &&
                                       knowUsSelected) {
                            HomeCubit.get(context).addCourse(name: nameController.text,
-                               city:cityController.text, gender: gender??"male", phone: phoneController.text,
+                               city:cityController.text,note: noteController.text, gender: gender??"male", phone: phoneController.text,
                                workStatus: workStatus??"work", payment: payMethod??"cash", stateId: selectedState?.id??0,
                                status:selectedStatus?.id??0, knowUs:selectedKnowUs?.id??0, batchNum:int.tryParse(batchController.text) ?? 0,
                                age: int.tryParse(ageController.text) ?? 0, img:base64Image);

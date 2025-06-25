@@ -2,6 +2,7 @@ import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../view_model/home_cubit.dart';
 
 class KnowUsDialog extends StatefulWidget{
@@ -39,10 +40,10 @@ class _KnowUsDialogState extends State<KnowUsDialog> {
           )
               : Text(
             AppLocalizations.of(context)!.selectHowKnow,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
           ),
           IconButton(
-            icon: Icon(isSearching ? Icons.close : Icons.search),
+            icon: Icon(isSearching ? Icons.close : Icons.search,size: 24.sp,),
             onPressed: () {
               setState(() {
                 isSearching = !isSearching;
@@ -68,7 +69,7 @@ class _KnowUsDialogState extends State<KnowUsDialog> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.warning_amber_rounded, color: Colors.red, size: 50),
+                    Icon(Icons.warning_amber_rounded, color: Colors.red, size: 50.sp),
                     SizedBox(height: 12),
                     Text(
                       "An error occurred.",
@@ -84,11 +85,11 @@ class _KnowUsDialogState extends State<KnowUsDialog> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset("assets/images/business_1732637.png",width: 28,height: 28,),
-                      SizedBox(height: 12),
+                      Image.asset("assets/images/business_1732637.png",width: 28.w,height: 28.h,),
+                      SizedBox(height: 12.h),
                       Text(
                         "No Result Found",
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                        style: TextStyle(fontSize: 18.sp, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -105,9 +106,9 @@ class _KnowUsDialogState extends State<KnowUsDialog> {
                 itemBuilder: (context, index) {
                   final item = knowUs[index];
                   return ListTile(
-                    leading: Image.asset("assets/images/business_1732637.png",width: 28,height: 28,),
+                    leading: Image.asset("assets/images/business_1732637.png",width: 28.w,height: 28.h,),
                     title: Text(item.name ?? "No Name",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
                     onTap: () {
                       widget.onKnowUsSelected(item);
                       Navigator.pop(context);

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import '../cache/shared_preferences.dart';
-import 'Constants.dart';
+import 'constants.dart';
 
 class ApiManager {
   Dio dio = Dio();

@@ -24,6 +24,7 @@
   "phone": "phone",
   "age": "age",
   "city": "city",
+  "note": "note",
   "batchNum": "batch number",
   "gender": "Gender",
   "male": "Male",

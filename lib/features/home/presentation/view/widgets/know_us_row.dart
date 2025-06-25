@@ -45,7 +45,7 @@ class _StatusRowState extends State<KnowUsRow> {
           onKnowUsSelected: (KnowUsResult newStatus) {
             setState(() {
               selectedKnowUs = newStatus;
-              selectedKnowUsName = newStatus.name!;
+              selectedKnowUsName = newStatus.name??"no name";
               hasChanged = true;
             });
           },

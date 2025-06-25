@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:courses_app/core/utils/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,6 +28,7 @@ class EditableField extends StatefulWidget {
 class _EditableFieldState extends State<EditableField> {
   late String _initialValue;
   Timer? _debounce;
+  bool _hasChanged = false;
 
   @override
   void initState() {
@@ -40,13 +40,23 @@ class _EditableFieldState extends State<EditableField> {
 
   void _onTextChanged() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(seconds: 1), () {
+    _debounce = Timer(const Duration(milliseconds: 400), () {
       final currentValue = widget.controller.text;
-      if (currentValue != _initialValue) {
-        _initialValue = currentValue;
-        widget.onSave(currentValue);
-      }
+      setState(() {
+        _hasChanged = currentValue != _initialValue;
+      });
     });
+  }
+
+  void _saveManually() {
+    final currentValue = widget.controller.text;
+    if (currentValue != _initialValue) {
+      setState(() {
+        _initialValue = currentValue;
+        _hasChanged = false;
+      });
+      widget.onSave(currentValue);
+    }
   }
 
   @override
@@ -83,25 +93,51 @@ class _EditableFieldState extends State<EditableField> {
           ),
           SizedBox(width: 8.w),
           Expanded(
-            child: TextFormField(
-              controller: widget.controller,
-              keyboardType: widget.keyboardType,
-              style: TextStyle(fontSize: 14.sp),
-              decoration: InputDecoration(
-                hintText: widget.initialValue,
-                hintStyle: TextStyle(fontSize: 14.sp),
-                border: const OutlineInputBorder(),
-                isDense: true,
-                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              ),
-              onFieldSubmitted: (value) {
-                if (value != _initialValue) {
-                  _initialValue = value;
-                  widget.onSave(value);
-                }
-              },
-              maxLines: null,
-              minLines: 1,
+            child: Stack(
+              alignment: Alignment.centerRight,
+              children: [
+                TextFormField(
+                  controller: widget.controller,
+                  keyboardType: widget.keyboardType,
+                  style: TextStyle(fontSize: 14.sp),
+                  decoration: InputDecoration(
+                    hintText: widget.initialValue,
+                    hintStyle: TextStyle(fontSize: 14.sp),
+                    border:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                          color: secondPrimary,
+                        )),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(
+                          color: secondPrimary,
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide(color: secondPrimary)),
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  ),
+                  maxLines: null,
+                  minLines: 1,
+                  onFieldSubmitted: (value) {
+                    if (value != _initialValue) {
+                      _initialValue = value;
+                      _hasChanged = false;
+                      widget.onSave(value);
+                    }
+                  },
+                ),
+                if (_hasChanged)
+                  Positioned(
+                    right: 8,
+                    child: InkWell(
+                      onTap: _saveManually,
+                      child: Icon(Icons.check, color: Colors.green, size: 28.sp),
+                    ),
+                  ),
+              ],
             ),
           ),
         ],
@@ -109,3 +145,4 @@ class _EditableFieldState extends State<EditableField> {
     );
   }
 }
+

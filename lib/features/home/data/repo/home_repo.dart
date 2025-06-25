@@ -14,11 +14,12 @@ import '../models/add_course_model.dart';
 import '../models/add_task_model.dart';
 
 abstract class HomeRepo {
-  Future<Either<Failures, GetCoursesModel>> getCourses({String query = ""});
-  Future<Either<Failures, GetTasksModel>> getTasks({String query = ""});
+  Future<Either<Failures, GetCoursesModel>> getCourses({String query = "",String searchCat=""});
+  Future<Either<Failures, GetTasksModel>> getTasks({String query = "",String searchCat=""});
   Future<Either<Failures, AddCourseModel>> addCourse({
     required String name,
     required String city,
+    required String note,
     required String gender,
     required String phone,
     required String workStatus,

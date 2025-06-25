@@ -52,9 +52,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
       } catch (_) {}
     }
 
-    return BlocProvider(
-      create: (_) => HomeCubit(),
-      child: BlocListener<HomeCubit, HomeState>(
+    return BlocListener<HomeCubit, HomeState>(
         listener: (context, state) {
           if (state is EditCoursesError) {
             Navigator.of(context).pop();
@@ -75,7 +73,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
             showDialog(
               context: context,
               barrierDismissible: false,
-              builder: (_) => const Center(child: CircularProgressIndicator()),
+              builder: (_) => const Center(child: CircularProgressIndicator(color:Colors.green,)),
             );
           } else if (state is EditCoursesSuccess) {
             Navigator.of(context).pop();
@@ -184,8 +182,8 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                   iconPath: "assets/images/status_4727553.png",
                   label: AppLocalizations.of(context)!.status,
                   initialValue: args.status?[1] ?? "",
-                  onSave: (status) {
-                    context.read<HomeCubit>().editCourse(courseId: args.id!, stateId: status.id);
+                  onSave: (state) {
+                    context.read<HomeCubit>().editCourse(courseId: args.id!, status: state.id);
                   },
                 ),
                 SizedBox(height: 8.h,),
@@ -232,7 +230,6 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
             ),
           ),
         ),
-      ),
     );
   }
 }

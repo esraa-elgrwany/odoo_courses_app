@@ -84,6 +84,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get city => 'city';
 
   @override
+  String get note => 'note';
+
+  @override
   String get batchNum => 'batch number';
 
   @override

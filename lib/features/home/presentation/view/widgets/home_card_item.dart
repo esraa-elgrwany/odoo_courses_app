@@ -29,6 +29,7 @@ class HomeCardItem extends StatelessWidget{
                 Image.asset(
                   imageUrl,
                   height: 100.h,
+                  width: 90,
                   fit: BoxFit.cover,
                 ),
                 SizedBox(height:16,),

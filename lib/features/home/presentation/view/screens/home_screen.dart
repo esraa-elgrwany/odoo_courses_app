@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       {
         "title": AppLocalizations.of(context)!.tasks,
-        "image": "assets/images/task_card.png",
+        "image": "assets/images/isometric-time-management-concept-illustrated.png",
         "route":"taskScreen"
       },
     ];

@@ -49,6 +49,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 appBar: AppBar(
                   elevation: 0,
                   surfaceTintColor: Colors.transparent,
+                  centerTitle: true,
                   title: Text(
                     AppLocalizations.of(context)!.addNewTask,
                     style: TextStyle(

@@ -87,6 +87,7 @@ class _CoursePhoneRowState extends State<CoursePhoneRow> {
             onSave: (value) => _savePhone(value),
           ),
         ),
+        SizedBox(width: 8,),
         InkWell(
           onTap: () => _openWhatsApp(widget.controller.text),
           child: Padding(

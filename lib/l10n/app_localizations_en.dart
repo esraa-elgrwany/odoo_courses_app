@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
+  String get loginWelcome => 'Enter username and password';
+
+  @override
   String get logout => 'Log out';
 
   @override
@@ -33,6 +36,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get usernameHint => 'username';
 
   @override
+  String get userValid => 'Please enter your username';
+
+  @override
   String get passHint => 'password';
 
   @override
@@ -48,7 +54,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get translate => 'Translation';
 
   @override
-  String get setting => 'Setting';
+  String get setting => 'Settings';
 
   @override
   String get courses => 'Courses';
@@ -85,6 +91,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get note => 'note';
+
+  @override
+  String get bookingRes => 'Booking Responsible';
+
+  @override
+  String get searchBy => 'search by';
 
   @override
   String get batchNum => 'batch number';

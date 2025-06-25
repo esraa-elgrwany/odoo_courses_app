@@ -1,5 +1,6 @@
 import 'package:courses_app/features/home/data/models/delete_course.dart';
 import 'package:courses_app/features/home/data/models/edit_course_model.dart';
+import 'package:courses_app/features/home/data/models/edit_task_model.dart';
 import 'package:courses_app/features/home/data/models/get_courses_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
@@ -53,6 +54,14 @@ abstract class HomeRepo {
     required int partnerId,
     required int userId,
     required String description,
+  });
+  Future<Either<Failures, EditTaskModel>> editTask({
+    required int taskId,
+    String? name,
+    int? projectId,
+    int? partnerId,
+    int? userId,
+    String? description,
   });
   Future<Either<Failures, GetState>> getState({String query = ""});
   Future<Either<Failures, GetStatus>> getStatus({String query = ""});

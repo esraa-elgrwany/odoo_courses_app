@@ -1,19 +1,19 @@
-import 'package:courses_app/core/utils/styles/colors.dart';
-import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
-import 'package:courses_app/features/home/presentation/view/widgets/know_us_dialog.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/project_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/utils/styles/colors.dart';
+import '../../../data/models/get_project_model.dart';
 import '../../view_model/home_cubit.dart';
 
-class KnowUsRow extends StatefulWidget{
+class ProjectRow extends StatefulWidget{
   final String label;
   final String iconPath;
   final String initialValue;
-  final void Function(KnowUsResult) onSave;
+  final void Function(ProjectResult) onSave;
 
-  const KnowUsRow({
+  const ProjectRow({
     Key? key,
     required this.label,
     required this.iconPath,
@@ -22,30 +22,30 @@ class KnowUsRow extends StatefulWidget{
   }) : super(key: key);
 
   @override
-  State<KnowUsRow> createState() => _StatusRowState();
+  State<ProjectRow> createState() => _ProjectRowState();
 }
 
-class _StatusRowState extends State<KnowUsRow> {
-  late String selectedKnowUsName;
-  KnowUsResult? selectedKnowUs;
+class _ProjectRowState extends State<ProjectRow> {
+  late String selectedProjectName;
+  ProjectResult? selectedProject;
   bool hasChanged = false;
 
   @override
   void initState() {
     super.initState();
-    selectedKnowUsName = widget.initialValue;
+    selectedProjectName = widget.initialValue;
   }
 
   void _showStateSelectionDialog() {
     showDialog(
       context: context,
       builder: (context) => BlocProvider(
-        create: (context) => HomeCubit()..getKnowUs(),
-        child: KnowUsDialog(
-          onKnowUsSelected: (KnowUsResult newStatus) {
+        create: (context) => HomeCubit()..getProjects(),
+        child: ProjectDialog(
+          onProjectSelected: (ProjectResult newStatus) {
             setState(() {
-              selectedKnowUs = newStatus;
-              selectedKnowUsName = newStatus.name??"no name";
+              selectedProject = newStatus;
+              selectedProjectName = newStatus.name??"no name";
               hasChanged = true;
             });
           },
@@ -55,8 +55,8 @@ class _StatusRowState extends State<KnowUsRow> {
   }
 
   void _saveState() {
-    if (selectedKnowUs != null) {
-      widget.onSave(selectedKnowUs!);
+    if (selectedProject != null) {
+      widget.onSave(selectedProject!);
       setState(() {
         hasChanged = false;
       });
@@ -96,13 +96,13 @@ class _StatusRowState extends State<KnowUsRow> {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color:secondPrimary),
+                  border: Border.all(color: secondPrimary),
                 ),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
-                        selectedKnowUsName,
+                        selectedProjectName,
                         style: TextStyle(fontSize: 14.sp),
                         overflow: TextOverflow.ellipsis,
                       ),

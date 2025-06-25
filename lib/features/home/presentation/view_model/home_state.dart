@@ -173,3 +173,16 @@ class EditCoursesError extends HomeState {
   final Failures failure;
   EditCoursesError(this.failure);
 }
+
+
+class EditTaskLoading extends HomeState {}
+
+class EditTaskSuccess extends HomeState {
+  final EditTaskModel task;
+  EditTaskSuccess(this.task);
+}
+
+class EditTaskError extends HomeState {
+  final Failures failure;
+  EditTaskError(this.failure);
+}

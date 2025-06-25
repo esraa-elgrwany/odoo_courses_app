@@ -1,19 +1,19 @@
-import 'package:courses_app/core/utils/styles/colors.dart';
-import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
-import 'package:courses_app/features/home/presentation/view/widgets/know_us_dialog.dart';
+import 'package:courses_app/features/home/data/models/get_partner_model.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/partner_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/utils/styles/colors.dart';
 import '../../view_model/home_cubit.dart';
 
-class KnowUsRow extends StatefulWidget{
+class PartnerRow extends StatefulWidget{
   final String label;
   final String iconPath;
   final String initialValue;
-  final void Function(KnowUsResult) onSave;
+  final void Function(PartnerResult) onSave;
 
-  const KnowUsRow({
+  const PartnerRow({
     Key? key,
     required this.label,
     required this.iconPath,
@@ -22,30 +22,30 @@ class KnowUsRow extends StatefulWidget{
   }) : super(key: key);
 
   @override
-  State<KnowUsRow> createState() => _StatusRowState();
+  State<PartnerRow> createState() => _PartnerRowState();
 }
 
-class _StatusRowState extends State<KnowUsRow> {
-  late String selectedKnowUsName;
-  KnowUsResult? selectedKnowUs;
+class _PartnerRowState extends State<PartnerRow> {
+  late String selectedPartnerName;
+  PartnerResult? selectedPartner;
   bool hasChanged = false;
 
   @override
   void initState() {
     super.initState();
-    selectedKnowUsName = widget.initialValue;
+    selectedPartnerName = widget.initialValue;
   }
 
   void _showStateSelectionDialog() {
     showDialog(
       context: context,
       builder: (context) => BlocProvider(
-        create: (context) => HomeCubit()..getKnowUs(),
-        child: KnowUsDialog(
-          onKnowUsSelected: (KnowUsResult newStatus) {
+        create: (context) => HomeCubit()..getPartners(),
+        child: PartnerDialog(
+          onPartnerSelected: (PartnerResult newPartner) {
             setState(() {
-              selectedKnowUs = newStatus;
-              selectedKnowUsName = newStatus.name??"no name";
+              selectedPartner = newPartner;
+              selectedPartnerName = newPartner.name??"no name";
               hasChanged = true;
             });
           },
@@ -55,8 +55,8 @@ class _StatusRowState extends State<KnowUsRow> {
   }
 
   void _saveState() {
-    if (selectedKnowUs != null) {
-      widget.onSave(selectedKnowUs!);
+    if (selectedPartner != null) {
+      widget.onSave(selectedPartner!);
       setState(() {
         hasChanged = false;
       });
@@ -102,7 +102,7 @@ class _StatusRowState extends State<KnowUsRow> {
                   children: [
                     Expanded(
                       child: Text(
-                        selectedKnowUsName,
+                        selectedPartnerName,
                         style: TextStyle(fontSize: 14.sp),
                         overflow: TextOverflow.ellipsis,
                       ),

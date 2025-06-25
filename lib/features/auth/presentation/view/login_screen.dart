@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/cache/shared_preferences.dart';
 import '../../../../core/utils/styles/colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../home/presentation/view/screens/home_screen.dart';
 import '../view_model/login_cubit.dart';
 
@@ -39,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Header("Login", "Enter username and password"),
+                        Header(AppLocalizations.of(context)!.login,AppLocalizations.of(context)!.loginWelcome),
                         SizedBox(height: 24.h),
                         Container(
                           height: MediaQuery.of(context).size.height /1.8,
@@ -65,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 20.h),
-                                        Text("Username",
+                                        Text(AppLocalizations.of(context)!.userName,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18.sp,
@@ -73,12 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         SizedBox(height: 8.h),
                                         TextFieldItem(
                                             controller: userController,
-                                            hint: "username",
+                                            hint: AppLocalizations.of(context)!.usernameHint,
                                             icon: Icons.person,
                                             validateTxt:
-                                                "please enter your userName"),
+                                            AppLocalizations.of(context)!.userValid),
                                         SizedBox(height: 20.h),
-                                        Text("Password",
+                                        Text(AppLocalizations.of(context)!.password,
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18.sp,
@@ -91,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           decoration: InputDecoration(
                                             filled: true,
                                             fillColor: secondPrimary,
-                                            hintText: "password",
+                                            hintText: AppLocalizations.of(context)!.passHint,
                                             hintStyle:TextStyle(color:thirdPrimary,fontSize: 16.sp,fontWeight:FontWeight.w500),
                                             enabledBorder: OutlineInputBorder(
                                                 borderRadius:
@@ -122,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                           validator: (value) {
                                             if (value == null || value.isEmpty) {
-                                              return "please enter your password";
+                                              return AppLocalizations.of(context)!.passValid;
                                             }
                                             return null;
                                           },
@@ -225,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     }
                                                   },
                                                   child: Text(
-                                                    "Login",
+                                                    AppLocalizations.of(context)!.login,
                                                     style: TextStyle(
                                                         color: Colors.white,fontWeight:FontWeight.bold),
                                                   ),
@@ -242,7 +243,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                             BorderRadiusDirectional
                                                                 .circular(12)),
                                                     textStyle:
-                                                        TextStyle(fontSize: 22.sp),
+                                                        TextStyle(fontSize: 18.sp),
                                                   ),
                                                 );
                                               },

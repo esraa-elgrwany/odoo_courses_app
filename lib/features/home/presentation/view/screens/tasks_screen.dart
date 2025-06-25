@@ -87,7 +87,7 @@ class _TaskScreenState extends State<TaskScreen> {
                     margin: EdgeInsets.only(left: 16, right: 16),
                     child: DropdownButtonFormField<String>(
                       decoration: InputDecoration(
-                        labelText: 'Search by',
+                        labelText:AppLocalizations.of(context)!.searchBy,
                         labelStyle:
                             TextStyle(fontSize: 14.sp, color: Colors.black),
                         border: OutlineInputBorder(
@@ -106,18 +106,18 @@ class _TaskScreenState extends State<TaskScreen> {
                       onChanged: (value) {
                         setState(() {
                           searchBy = value;
-                          if (value == "name") {
+                          if (value == AppLocalizations.of(context)!.name) {
                             searchCategory = "name";
-                          } else if (value == "user") {
+                          } else if (value ==AppLocalizations.of(context)!.user) {
                             searchCategory = "user_ids";
                             _showUserSelectionDialog();
-                          } else if (value == "project") {
+                          } else if (value ==AppLocalizations.of(context)!.project) {
                             searchCategory = "project_id";
                             _showProjectSelectionDialog();
-                          } else if (value == "partner") {
+                          } else if (value ==AppLocalizations.of(context)!.partner) {
                             searchCategory = "partner_id";
                             _showPartnerSelectionDialog();
-                          } else if (value == "description") {
+                          } else if (value ==AppLocalizations.of(context)!.description) {
                             searchCategory = "description";
                           }
                         });
@@ -126,11 +126,11 @@ class _TaskScreenState extends State<TaskScreen> {
                       iconEnabledColor: primaryColor,
                       style: TextStyle(fontSize: 16.sp, color: Colors.black),
                       items: [
-                        'name',
-                        'user',
-                        'project',
-                        'partner',
-                        'description',
+                        AppLocalizations.of(context)!.name,
+                        AppLocalizations.of(context)!.user,
+                        AppLocalizations.of(context)!.project,
+                        AppLocalizations.of(context)!.partner,
+                        AppLocalizations.of(context)!.description,
                       ].map((category) {
                         return DropdownMenuItem(
                           value: category,

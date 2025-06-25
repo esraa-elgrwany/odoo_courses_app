@@ -95,7 +95,7 @@ class _StatusRowState extends State<StatusRow> {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade400),
+                  border: Border.all(color:secondPrimary),
                 ),
                 child: Row(
                   children: [

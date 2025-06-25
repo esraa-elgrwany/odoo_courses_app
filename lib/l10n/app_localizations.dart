@@ -104,6 +104,12 @@ abstract class AppLocalizations {
   /// **'Login'**
   String get login;
 
+  /// No description provided for @loginWelcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter username and password'**
+  String get loginWelcome;
+
   /// No description provided for @logout.
   ///
   /// In en, this message translates to:
@@ -146,6 +152,12 @@ abstract class AppLocalizations {
   /// **'username'**
   String get usernameHint;
 
+  /// No description provided for @userValid.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your username'**
+  String get userValid;
+
   /// No description provided for @passHint.
   ///
   /// In en, this message translates to:
@@ -179,7 +191,7 @@ abstract class AppLocalizations {
   /// No description provided for @setting.
   ///
   /// In en, this message translates to:
-  /// **'Setting'**
+  /// **'Settings'**
   String get setting;
 
   /// No description provided for @courses.
@@ -253,6 +265,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'note'**
   String get note;
+
+  /// No description provided for @bookingRes.
+  ///
+  /// In en, this message translates to:
+  /// **'Booking Responsible'**
+  String get bookingRes;
+
+  /// No description provided for @searchBy.
+  ///
+  /// In en, this message translates to:
+  /// **'search by'**
+  String get searchBy;
 
   /// No description provided for @batchNum.
   ///

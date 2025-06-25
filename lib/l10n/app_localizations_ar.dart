@@ -12,6 +12,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get login => 'تسجيل الدخول';
 
   @override
+  String get loginWelcome => 'ادخل اسم المستخدم و كلمة السر';
+
+  @override
   String get logout => 'تسجيل الخروج';
 
   @override
@@ -31,6 +34,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get usernameHint => 'ادخل اسم المستخدم';
+
+  @override
+  String get userValid => 'ادخل اسم المستخدم';
 
   @override
   String get passHint => 'ادخل كلمة السر';
@@ -85,6 +91,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get note => 'ملاحظة';
+
+  @override
+  String get bookingRes => 'مسئول الحجز';
+
+  @override
+  String get searchBy => 'بحث من خلال';
 
   @override
   String get batchNum => 'رقم الدفعة';
@@ -165,13 +177,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get taskDetails => 'تفاصيل التاسك';
 
   @override
-  String get user => 'مستخدم';
+  String get user => 'المستخدم';
 
   @override
-  String get project => 'مشروع';
+  String get project => 'المشروع';
 
   @override
-  String get partner => 'شريك';
+  String get partner => 'الشريك';
 
   @override
   String get state => 'المحافظة';

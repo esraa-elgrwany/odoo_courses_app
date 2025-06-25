@@ -1,11 +1,9 @@
 import 'package:courses_app/core/utils/styles/colors.dart';
-import 'package:courses_app/features/auth/presentation/view/login_screen.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/home_card_item.dart';
 import 'package:courses_app/features/setting/view/setting_screen.dart';
 import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/cache/shared_preferences.dart';
 class HomeScreen extends StatefulWidget{
   static const String routeName="homeScreen";
   const HomeScreen({super.key});
@@ -44,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                    bottomRight: Radius.circular(50),
                  )
               ),
-              child: Center(child: Image.asset("assets/images/شريف زناتى since 2010 white 1.png",width:100.w,height:130.h,
+              child: Center(child: Image.asset("assets/images/شريف زناتى since 2010 white 1.png",width:80.w,height:100.h,
                 fit: BoxFit.cover,)),
             ),
             Padding(

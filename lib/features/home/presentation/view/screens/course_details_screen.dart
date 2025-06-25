@@ -101,8 +101,11 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
+            centerTitle: true,
             surfaceTintColor: Colors.transparent,
-            title: Text(AppLocalizations.of(context)!.courseDetails),
+            title: Text(AppLocalizations.of(context)!.courseDetails,style: TextStyle(
+            fontSize: 24.sp,fontWeight: FontWeight.bold
+            )),
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),

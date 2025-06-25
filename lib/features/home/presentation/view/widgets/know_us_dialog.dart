@@ -70,10 +70,10 @@ class _KnowUsDialogState extends State<KnowUsDialog> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.warning_amber_rounded, color: Colors.red, size: 50.sp),
-                    SizedBox(height: 12),
+                    SizedBox(height: 12.h),
                     Text(
                       "An error occurred.",
-                      style: TextStyle(color: Colors.red, fontSize: 18),
+                      style: TextStyle(color: Colors.red, fontSize: 20.sp),
                     ),
                   ],
                 ),

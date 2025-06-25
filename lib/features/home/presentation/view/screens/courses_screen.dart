@@ -78,7 +78,7 @@ class _CourseScreenState extends State<CourseScreen> {
                     child:
                     DropdownButtonFormField<String>(
                       decoration: InputDecoration(
-                        labelText: 'Search by',
+                        labelText: AppLocalizations.of(context)!.searchBy,
                         labelStyle:TextStyle(fontSize: 14.sp,color:Colors.black) ,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -95,17 +95,17 @@ class _CourseScreenState extends State<CourseScreen> {
                       onChanged: (value) {
                         setState(() {
                           searchBy = value;
-                          if(value=="name"){
+                          if(value==AppLocalizations.of(context)!.name){
                             searchCategory = "name";
-                          }else if(value=="state"){
+                          }else if(value==AppLocalizations.of(context)!.state){
                             searchCategory ="state_id";
                             _showStateSelectionDialog();
-                          }else if(value=="status"){
+                          }else if(value==AppLocalizations.of(context)!.status){
                             searchCategory ="status";
                             _showStatusSelectionDialog();
-                          }else if(value=="booking responsible"){
+                          }else if(value==AppLocalizations.of(context)!.bookingRes){
                             searchCategory ="booking_responsable";
-                          }else if(value=="batch number"){
+                          }else if(value==AppLocalizations.of(context)!.batchNum){
                             searchCategory ="batch_num";
                           }
                         });
@@ -114,11 +114,11 @@ class _CourseScreenState extends State<CourseScreen> {
                       iconEnabledColor: primaryColor,
                       style: TextStyle(fontSize: 16.sp,color: Colors.black),
                       items: [
-                        'name',
-                        'state',
-                        'status',
-                        'booking responsible',
-                        'batch number',
+                        AppLocalizations.of(context)!.name,
+                        AppLocalizations.of(context)!.state,
+                        AppLocalizations.of(context)!.status,
+                         AppLocalizations.of(context)!.bookingRes,
+                        AppLocalizations.of(context)!.batchNum,
                       ].map((category) {
                         return DropdownMenuItem(
                           value: category,

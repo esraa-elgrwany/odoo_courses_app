@@ -60,6 +60,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
               appBar: AppBar(
                 elevation: 0,
                 surfaceTintColor: Colors.transparent,
+                centerTitle: true,
                 title: Text(
                   AppLocalizations.of(context)!.addNewCourse,
                   style: TextStyle(

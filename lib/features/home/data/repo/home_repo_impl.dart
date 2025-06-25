@@ -2,6 +2,7 @@ import 'package:courses_app/core/Failures/Failures.dart';
 import 'package:courses_app/features/home/data/models/add_task_model.dart';
 import 'package:courses_app/features/home/data/models/delete_course.dart';
 import 'package:courses_app/features/home/data/models/edit_course_model.dart';
+import 'package:courses_app/features/home/data/models/edit_task_model.dart';
 import 'package:courses_app/features/home/data/models/get_courses_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
@@ -453,6 +454,54 @@ class HomeRepoImpl implements HomeRepo {
 
       if (response.statusCode == 200) {
         EditCourseModel model = EditCourseModel.fromJson(response.data);
+        return Right(model);
+      } else {
+        return Left(ServerFailure("Unexpected HTTP Error: ${response.statusCode}"));
+      }
+    } catch (e) {
+      return Left(ServerFailure("Exception: ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failures, EditTaskModel>> editTask({
+    required int taskId,
+    String? name,
+    int? projectId,
+    int? partnerId,
+    int? userId,
+    String? description,
+  }) async {
+    try {
+      final Map<String, dynamic> fieldsToUpdate = {};
+
+      if (name != null) fieldsToUpdate["name"] = name;
+      if (projectId != null) fieldsToUpdate["project_id"] = projectId;
+      if (partnerId != null) fieldsToUpdate["partner_id"] = partnerId;
+      if (description != null) fieldsToUpdate["description"] = description;
+
+      if (userId != null) {
+        fieldsToUpdate["user_ids"] = [
+          [6, 0, [userId]]
+        ];
+      }
+
+      final Map<String, dynamic> body = {
+        "params": {
+          "model": "project.task",
+          "method": "write",
+          "args": [
+            [taskId],
+            fieldsToUpdate,
+          ],
+          "kwargs": {}
+        }
+      };
+
+      Response response = await apiManager.postData(body: body);
+
+      if (response.statusCode == 200) {
+        EditTaskModel model = EditTaskModel.fromJson(response.data);
         return Right(model);
       } else {
         return Left(ServerFailure("Unexpected HTTP Error: ${response.statusCode}"));

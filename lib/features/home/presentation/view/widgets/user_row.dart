@@ -1,19 +1,19 @@
-import 'package:courses_app/core/utils/styles/colors.dart';
-import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
-import 'package:courses_app/features/home/presentation/view/widgets/know_us_dialog.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/user_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../core/utils/styles/colors.dart';
+import '../../../data/models/get_user_model.dart';
 import '../../view_model/home_cubit.dart';
 
-class KnowUsRow extends StatefulWidget{
+class UserRow extends StatefulWidget{
   final String label;
   final String iconPath;
   final String initialValue;
-  final void Function(KnowUsResult) onSave;
+  final void Function(UserResult) onSave;
 
-  const KnowUsRow({
+  const UserRow({
     Key? key,
     required this.label,
     required this.iconPath,
@@ -22,30 +22,30 @@ class KnowUsRow extends StatefulWidget{
   }) : super(key: key);
 
   @override
-  State<KnowUsRow> createState() => _StatusRowState();
+  State<UserRow> createState() => _UserRowState();
 }
 
-class _StatusRowState extends State<KnowUsRow> {
-  late String selectedKnowUsName;
-  KnowUsResult? selectedKnowUs;
+class _UserRowState extends State<UserRow> {
+  late String selectedUserName;
+  UserResult? selectedUser;
   bool hasChanged = false;
 
   @override
   void initState() {
     super.initState();
-    selectedKnowUsName = widget.initialValue;
+    selectedUserName = widget.initialValue;
   }
 
   void _showStateSelectionDialog() {
     showDialog(
       context: context,
       builder: (context) => BlocProvider(
-        create: (context) => HomeCubit()..getKnowUs(),
-        child: KnowUsDialog(
-          onKnowUsSelected: (KnowUsResult newStatus) {
+        create: (context) => HomeCubit()..getUsers(),
+        child: UserDialog(
+          onUserSelected: (UserResult newUser) {
             setState(() {
-              selectedKnowUs = newStatus;
-              selectedKnowUsName = newStatus.name??"no name";
+              selectedUser = newUser;
+              selectedUserName = newUser.name??"no name";
               hasChanged = true;
             });
           },
@@ -55,8 +55,8 @@ class _StatusRowState extends State<KnowUsRow> {
   }
 
   void _saveState() {
-    if (selectedKnowUs != null) {
-      widget.onSave(selectedKnowUs!);
+    if (selectedUser!= null) {
+      widget.onSave(selectedUser!);
       setState(() {
         hasChanged = false;
       });
@@ -96,13 +96,13 @@ class _StatusRowState extends State<KnowUsRow> {
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color:secondPrimary),
+                  border: Border.all(color: secondPrimary),
                 ),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
-                        selectedKnowUsName,
+                        selectedUserName,
                         style: TextStyle(fontSize: 14.sp),
                         overflow: TextOverflow.ellipsis,
                       ),

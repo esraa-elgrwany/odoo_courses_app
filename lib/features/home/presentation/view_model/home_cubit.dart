@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:courses_app/features/home/data/models/add_course_model.dart';
 import 'package:courses_app/features/home/data/models/edit_course_model.dart';
+import 'package:courses_app/features/home/data/models/edit_task_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
 import 'package:courses_app/features/home/data/models/get_status.dart';
@@ -257,8 +258,31 @@ class HomeCubit extends Cubit<HomeState> {
         (failure) => emit(EditCoursesError(failure)),
         (model) {
           emit(EditCoursesSuccess(model));
-          getCourses(); // Refresh list after editing
+          getCourses();
         },
       );
+  }
+  Future<void> editTask({
+    required int taskId,
+    String? name,
+    int? projectId,
+    int? partnerId,
+    int? userId,
+    String? description,
+  }) async {
+    emit(EditTaskLoading());
+
+    final ApiManager apiManager = ApiManager();
+    final HomeRepo homeRepo = HomeRepoImpl(apiManager);
+
+    final result = await homeRepo.editTask(taskId: taskId,name: name,description: description,
+    partnerId: partnerId,projectId: projectId,userId: userId);
+    result.fold(
+          (failure) => emit(EditTaskError(failure)),
+          (task) {
+            emit(EditTaskSuccess(task));
+            getTasks();
+          }
+    );
   }
 }

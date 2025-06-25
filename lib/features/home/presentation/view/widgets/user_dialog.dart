@@ -2,6 +2,7 @@ import 'package:courses_app/features/home/data/models/get_user_model.dart';
 import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../view_model/home_cubit.dart';
 
 class UserDialog extends StatefulWidget{
@@ -39,7 +40,7 @@ class _UserDialogState extends State<UserDialog> {
           )
               : Text(
             AppLocalizations.of(context)!.selectUser,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w600),
           ),
           IconButton(
             icon: Icon(isSearching ? Icons.close : Icons.search),
@@ -68,11 +69,11 @@ class _UserDialogState extends State<UserDialog> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.warning_amber_rounded, color: Colors.red, size: 50),
-                    SizedBox(height: 12),
+                    Icon(Icons.warning_amber_rounded, color: Colors.red, size: 50.sp),
+                    SizedBox(height: 12.h),
                     Text(
                       "An error occurred.",
-                      style: TextStyle(color: Colors.red, fontSize: 18),
+                      style: TextStyle(color: Colors.red, fontSize: 20.sp),
                     ),
                   ],
                 ),
@@ -84,11 +85,11 @@ class _UserDialogState extends State<UserDialog> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset("assets/images/people_8532963.png",width: 24,height: 24,),
-                      SizedBox(height: 12),
+                      Image.asset("assets/images/people_8532963.png",width: 24.w,height: 24.h,),
+                      SizedBox(height: 12.h),
                       Text(
                         "No Users Found",
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                        style: TextStyle(fontSize: 20.sp, color: Colors.grey),
                       ),
                     ],
                   ),
@@ -105,9 +106,9 @@ class _UserDialogState extends State<UserDialog> {
                 itemBuilder: (context, index) {
                   final customer = users[index];
                   return ListTile(
-                    leading: Image.asset("assets/images/people_8532963.png",width: 24,height: 24,),
+                    leading: Image.asset("assets/images/people_8532963.png",width: 28.w,height: 28.h,),
                     title: Text(customer.name ?? "No Name",
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
                     onTap: () {
                       widget.onUserSelected(customer);
                       Navigator.pop(context);

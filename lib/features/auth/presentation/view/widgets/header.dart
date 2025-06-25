@@ -13,7 +13,7 @@ class Header extends StatelessWidget {
       children: [
         CircleAvatar(
             backgroundColor:Colors.blue[100],
-            radius: 32,
+            radius: 30,
             child:Image.asset("assets/images/login_12658121.png") ),
         SizedBox(width: 16.w),
         Column(
@@ -22,7 +22,7 @@ class Header extends StatelessWidget {
             Text(
               txt1,
               style: TextStyle(
-                  fontSize: 22.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),

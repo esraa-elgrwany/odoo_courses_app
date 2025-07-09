@@ -102,7 +102,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   context.read<HomeCubit>().editTask(taskId: args.id!, name: nameController.text);
                 },
               ),
-              SizedBox(height: 8.h,),
+              SizedBox(height: 16.h,),
               ProjectRow(
                 iconPath: "assets/images/project.png",
                 label: AppLocalizations.of(context)!.project,
@@ -111,7 +111,6 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   context.read<HomeCubit>().editTask(taskId: args.id!, projectId: project.id);
                 },
               ),
-              SizedBox(height: 8.h,),
               PartnerRow(
                 iconPath: "assets/images/customer.png",
                 label: AppLocalizations.of(context)!.partner,
@@ -120,7 +119,6 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   context.read<HomeCubit>().editTask(taskId: args.id!, partnerId: partner.id);
                 },
               ),
-              SizedBox(height: 8.h,),
               UserRow(
                 iconPath: "assets/images/people_8532963.png",
                 label: AppLocalizations.of(context)!.user,
@@ -129,7 +127,6 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   context.read<HomeCubit>().editTask(taskId: args.id!,userId: user.id);
                 },
               ),
-              SizedBox(height: 8.h,),
               EditableField(
                 controller: descriptionController,
                 label: AppLocalizations.of(context)!.description,

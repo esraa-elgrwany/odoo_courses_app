@@ -88,7 +88,7 @@ class _EditableFieldState extends State<EditableField> {
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,
-                  color: primaryColor,
+                  color:Colors.black,
                 ),
               ),
             ],

@@ -59,6 +59,7 @@
   "project": "Project",
   "partner": "Partner",
   "state": "State",
+  "stage": "Stage",
   "status": "Status",
   "know": "How to Know Us"
 }

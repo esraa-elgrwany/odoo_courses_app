@@ -189,6 +189,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get state => 'المحافظة';
 
   @override
+  String get stage => 'المرحلة';
+
+  @override
   String get status => 'الحالة';
 
   @override

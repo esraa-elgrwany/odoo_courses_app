@@ -189,6 +189,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get state => 'State';
 
   @override
+  String get stage => 'Stage';
+
+  @override
   String get status => 'Status';
 
   @override

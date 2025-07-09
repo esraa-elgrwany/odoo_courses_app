@@ -458,6 +458,12 @@ abstract class AppLocalizations {
   /// **'State'**
   String get state;
 
+  /// No description provided for @stage.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage'**
+  String get stage;
+
   /// No description provided for @status.
   ///
   /// In en, this message translates to:

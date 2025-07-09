@@ -1,3 +1,4 @@
+import 'package:courses_app/features/home/presentation/view/widgets/editable_field.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/user_row.dart';
 import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:html/parser.dart';
 import '../../../../../core/utils/styles/colors.dart';
 import '../../../data/models/get_tasks_model.dart';
 import '../../view_model/home_cubit.dart';
-import '../widgets/editable_field.dart';
 import '../widgets/partner_row.dart';
 import '../widgets/project_row.dart';
 

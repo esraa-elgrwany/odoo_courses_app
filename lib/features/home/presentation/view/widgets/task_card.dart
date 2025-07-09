@@ -1,6 +1,8 @@
 import 'package:courses_app/features/home/presentation/view/widgets/icon_badge.dart';
+import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../core/utils/styles/colors.dart';
 import '../../../../setting/model_view/setting_cubit.dart';
 import '../../view_model/home_cubit.dart';
 class TaskCard extends StatelessWidget{
@@ -82,7 +84,20 @@ class TaskCard extends StatelessWidget{
                     SizedBox(height: 12.h),
                     Row(
                       children: [
-                        Text("stage: ",
+                        Icon(Icons.date_range_outlined,color: primaryColor,size: 24.sp,),
+                        SizedBox(width: 4.w,),
+                        Text(
+                            task.deadline ??"No deadline" ,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                            )),
+                      ],
+                    ),
+                    SizedBox(height: 12.h),
+                    Row(
+                      children: [
+                        Text("${AppLocalizations.of(context)!.stage}: ",
                             style: TextStyle(
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w600,

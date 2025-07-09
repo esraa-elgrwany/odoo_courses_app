@@ -54,7 +54,7 @@ class CourseCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "city:",
+                        "${AppLocalizations.of(context)!.city}:",
                         style: TextStyle(fontSize: 18.sp),
                       ),
                       //Image.asset("assets/images/cityscape_17359653.png",width:24,height:24,),
@@ -71,7 +71,7 @@ class CourseCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "state:",
+                  "${AppLocalizations.of(context)!.state}:",
                         style: TextStyle(fontSize: 18.sp),
                       ),
                       //Image.asset("assets/images/partner.png",width:24,height:24,),

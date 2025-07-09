@@ -75,7 +75,7 @@ class _ProjectRowState extends State<ProjectRow> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               color: secondPrimary,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
               children: [

@@ -287,7 +287,6 @@ class _TaskScreenState extends State<TaskScreen> {
               setState(() {
                 selectedUser = user;
                 searchCategory = "user_ids";
-                searchBy = "user";
               });
               context.read<HomeCubit>().getTasks(
                     query: user.name ?? "",

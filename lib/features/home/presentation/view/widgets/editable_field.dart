@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:courses_app/core/utils/styles/colors.dart';
+import 'package:courses_app/features/setting/model_view/setting_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -56,6 +57,7 @@ class _EditableFieldState extends State<EditableField> {
         _hasChanged = false;
       });
       widget.onSave(currentValue);
+      FocusScope.of(context).unfocus(); // Hide keyboard after save
     }
   }
 
@@ -68,81 +70,73 @@ class _EditableFieldState extends State<EditableField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 40.h,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              color: secondPrimary,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              children: [
-                Image.asset(widget.iconPath, width: 24.w, height: 24.h),
-                SizedBox(width: 4.w),
-                Text(
-                  widget.label,
-                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical:8.h),
+          decoration: BoxDecoration(
+            color: secondPrimary,
+            borderRadius: BorderRadius.circular(12),
           ),
-          SizedBox(width: 8.w),
-          Expanded(
-            child: Stack(
-              alignment: Alignment.centerRight,
-              children: [
-                TextFormField(
-                  controller: widget.controller,
-                  keyboardType: widget.keyboardType,
-                  style: TextStyle(fontSize: 14.sp),
-                  decoration: InputDecoration(
-                    hintText: widget.initialValue,
-                    hintStyle: TextStyle(fontSize: 14.sp),
-                    border:OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: secondPrimary,
-                        )),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(
-                          color: secondPrimary,
-                        )),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(color: secondPrimary)),
-                    isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                  ),
-                  maxLines: null,
-                  minLines: 1,
-                  onFieldSubmitted: (value) {
-                    if (value != _initialValue) {
-                      _initialValue = value;
-                      _hasChanged = false;
-                      widget.onSave(value);
-                    }
-                  },
+          child: Row(
+            children: [
+              Image.asset(widget.iconPath, width: 24.w, height: 24.h),
+               SizedBox(width: 6.w),
+              Text(
+                widget.label,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: primaryColor,
                 ),
-                if (_hasChanged)
-                  Positioned(
-                    right: 8,
-                    child: InkWell(
-                      onTap: _saveManually,
-                      child: Icon(Icons.check, color: Colors.green, size: 28.sp),
-                    ),
-                  ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+         SizedBox(width:8.w),
+        Expanded(
+          child: TextFormField(
+            controller: widget.controller,
+            keyboardType: widget.keyboardType,
+            style: TextStyle(fontSize: 12.sp,fontWeight: FontWeight.w500),
+            decoration: InputDecoration(
+              hintText: widget.initialValue,
+              hintStyle: TextStyle(fontSize: 12.sp, color: Colors.black,fontWeight: FontWeight.w500),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical:4),
+              isDense: true,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: secondPrimary),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color:secondPrimary),
+              ),
+              suffixIcon: _hasChanged
+                  ? Tooltip(
+                message: "Save",
+                child: InkWell(
+                  onTap: _saveManually,
+                  child: Icon(Icons.check, color: Colors.green, size: 24.sp),
+                ),
+              )
+                  : Icon(Icons.edit, color:primaryColor, size: 20.sp),
+            ),
+            maxLines: null,
+            minLines: 1,
+            onFieldSubmitted: (value) {
+              if (value != _initialValue) {
+                _initialValue = value;
+                _hasChanged = false;
+                widget.onSave(value);
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }
+
 

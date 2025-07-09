@@ -94,8 +94,8 @@ class _CoursePhoneRowState extends State<CoursePhoneRow> {
             padding: EdgeInsets.only(left: 8.w),
             child: Image.asset(
               "assets/images/whatsapp_3670051.png",
-              width: 28.w,
-              height: 28.h,
+              width: 32.w,
+              height: 32.h,
             ),
           ),
         ),

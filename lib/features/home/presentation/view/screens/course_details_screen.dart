@@ -128,9 +128,9 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     context.read<HomeCubit>().editCourse(courseId: args.id!, name: nameController.text);
                   },
                 ),
-                SizedBox(height: 8.h,),
+                SizedBox(height: 12.h,),
                 CoursePhoneRow(args: args, controller: phoneController),
-                SizedBox(height: 8.h,),
+                SizedBox(height: 12.h,),
                 EditableField(
                   controller: ageController,
                   label: AppLocalizations.of(context)!.age,
@@ -141,7 +141,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     context.read<HomeCubit>().editCourse(courseId: args.id!, age: int.tryParse(ageController.text));
                   },
                 ),
-                SizedBox(height: 8.h,),
+                SizedBox(height: 12.h,),
                 EditableField(
                   controller: cityController,
                   label: AppLocalizations.of(context)!.city,
@@ -151,7 +151,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     context.read<HomeCubit>().editCourse(courseId: args.id!, city: cityController.text);
                   },
                 ),
-                SizedBox(height: 8.h,),
+                SizedBox(height: 12.h,),
                 EditableField(
                   controller: batchController,
                   label: AppLocalizations.of(context)!.batchNum,
@@ -161,7 +161,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     context.read<HomeCubit>().editCourse(courseId: args.id!, batchNum: int.tryParse(batchController.text));
                   },
                 ),
-                SizedBox(height: 8.h,),
+                SizedBox(height: 12.h,),
                 EditableField(
                   controller: noteController,
                   label: "note",
@@ -171,7 +171,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     context.read<HomeCubit>().editCourse(courseId: args.id!, note: noteController.text);
                   },
                 ),
-                SizedBox(height: 8.h,),
+                SizedBox(height: 12.h,),
                 StateRow(
                   iconPath: "assets/images/map_3270996.png",
                   label: AppLocalizations.of(context)!.state,
@@ -180,7 +180,6 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     context.read<HomeCubit>().editCourse(courseId: args.id!, stateId: state.id);
                   },
                 ),
-                SizedBox(height: 8.h,),
                 StatusRow(
                   iconPath: "assets/images/status_4727553.png",
                   label: AppLocalizations.of(context)!.status,
@@ -189,7 +188,6 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                     context.read<HomeCubit>().editCourse(courseId: args.id!, status: state.id);
                   },
                 ),
-                SizedBox(height: 8.h,),
                KnowUsRow(
                   iconPath: "assets/images/business_1732637.png",
                   label: AppLocalizations.of(context)!.know,
@@ -201,7 +199,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                 PaymentRow(args: args),
                 GenderRow(args: args),
                 WorkRow(args: args),
-                SizedBox(height: 8.h,),
+                SizedBox(height: 12.h,),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Row(

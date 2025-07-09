@@ -135,7 +135,6 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                 label: AppLocalizations.of(context)!.description,
                 iconPath: "assets/images/statistics_15301544.png",
                 initialValue: removeHtmlTags(args.description??"No description"),
-                keyboardType: TextInputType.number,
                 onSave: (value) {
                   context.read<HomeCubit>().editTask(taskId: args.id!, description:descriptionController.text);
                 },

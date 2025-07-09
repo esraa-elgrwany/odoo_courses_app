@@ -221,7 +221,6 @@ class _CourseScreenState extends State<CourseScreen> {
             setState(() {
               selectedStatus = status;
               searchCategory = "status";
-              searchBy = "status";
             });
             context.read<HomeCubit>().getCourses(
               query: status.name ?? "",
@@ -242,7 +241,6 @@ class _CourseScreenState extends State<CourseScreen> {
             setState(() {
               selectedState = state;
               searchCategory = "state_id";
-              searchBy = "state";
             });
             context.read<HomeCubit>().getCourses(
               query: state.name??"",

@@ -13,6 +13,7 @@ import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../widgets/know_us_row.dart';
 import '../widgets/status_row.dart';
@@ -200,6 +201,50 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                 GenderRow(args: args),
                 WorkRow(args: args),
                 SizedBox(height: 12.h,),
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical:8.h),
+                        decoration: BoxDecoration(
+                          color: secondPrimary,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/images/calendar_591607.png", width: 24.w, height: 24.h),
+                            SizedBox(width: 6.w),
+                            Text(
+                              AppLocalizations.of(context)!.date,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color:Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width:8.w),
+                      Container(
+                        width: 140.w,
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                                color:secondPrimary
+                            )
+                        ),
+                        child: Center(
+                          child: Text(_formatDate(args.date),style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color:Colors.black,
+                          ),),
+                        ),
+                      ),
+                    ]),
+                SizedBox(height: 12.h,),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Row(
@@ -221,7 +266,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                       ),
                       SizedBox(width: 8.w),
                       Text(
-                        args.bookingResponsable?[1] ?? "no data",
+                        args.bookingResponsable?[1] ?? "",
                         style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -232,6 +277,17 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
           ),
         ),
     );
+  }
+  String _formatDate(String? dateTimeString) {
+    if (dateTimeString == null || dateTimeString.isEmpty) {
+      return "No date";
+    }
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      return DateFormat('yyyy-MM-dd').format(dateTime);
+    } catch (e) {
+      return "Invalid date";
+    }
   }
 }
 

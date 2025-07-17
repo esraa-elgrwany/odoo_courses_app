@@ -60,6 +60,8 @@
   "partner": "Partner",
   "state": "State",
   "stage": "Stage",
+  "date": "Date",
+  "deadline": "Deadline",
   "status": "Status",
   "know": "How to Know Us"
 }

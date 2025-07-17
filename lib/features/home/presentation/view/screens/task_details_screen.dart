@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:html/parser.dart';
+import 'package:intl/intl.dart';
 import '../../../../../core/utils/styles/colors.dart';
 import '../../../data/models/get_tasks_model.dart';
 import '../../view_model/home_cubit.dart';
+import '../widgets/deadline_edit_field.dart';
 import '../widgets/partner_row.dart';
 import '../widgets/project_row.dart';
 
@@ -23,6 +25,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   late TaskResult args;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
 
   @override
   void didChangeDependencies() {
@@ -127,6 +130,19 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   context.read<HomeCubit>().editTask(taskId: args.id!,userId: user.id);
                 },
               ),
+              EditableDateField(
+                controller: dateController,
+                label: AppLocalizations.of(context)!.deadline,
+                iconPath: "assets/images/deadline_6863909.png", // use your date icon here
+                initialValue: args.deadline ?? "", // or use a default value
+                onSave: (value) {
+                  context.read<HomeCubit>().editTask(
+                    taskId: args.id!,
+                    deadline: dateController.text,
+                  );
+                },
+              ),
+              SizedBox(height: 16.h,),
               EditableField(
                 controller: descriptionController,
                 label: AppLocalizations.of(context)!.description,
@@ -136,11 +152,66 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   context.read<HomeCubit>().editTask(taskId: args.id!, description:descriptionController.text);
                 },
               ),
+              SizedBox(height: 16.h,),
+              Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical:8.h),
+                      decoration: BoxDecoration(
+                        color: secondPrimary,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        children: [
+                          Image.asset("assets/images/calendar_591607.png", width: 24.w, height: 24.h),
+                          SizedBox(width: 6.w),
+                          Text(
+                            AppLocalizations.of(context)!.date,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              color:Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width:8.w),
+                    Container(
+                      width: 140.w,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color:secondPrimary
+                        )
+                      ),
+                      child: Center(
+                        child: Text(_formatDate(args.date),style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color:Colors.black,
+                        ),),
+                      ),
+                    ),
+                  ]),
             ],
           ),
         ),
       ),
     );
+  }
+  String _formatDate(String? dateTimeString) {
+    if (dateTimeString == null || dateTimeString.isEmpty) {
+      return "No date";
+    }
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      return DateFormat('yyyy-MM-dd').format(dateTime);
+    } catch (e) {
+      return "Invalid date";
+    }
   }
 
   String removeHtmlTags(String? htmlString) {

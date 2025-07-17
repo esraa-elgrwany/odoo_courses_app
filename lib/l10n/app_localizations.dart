@@ -464,6 +464,18 @@ abstract class AppLocalizations {
   /// **'Stage'**
   String get stage;
 
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @deadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Deadline'**
+  String get deadline;
+
   /// No description provided for @status.
   ///
   /// In en, this message translates to:

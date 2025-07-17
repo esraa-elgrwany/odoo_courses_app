@@ -4,6 +4,7 @@ import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import '../../../../../core/utils/styles/colors.dart';
 import '../../view_model/home_cubit.dart';
 
@@ -66,7 +67,6 @@ class CourseCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 12.h),
-
                   // State
                   Row(
                     children: [
@@ -81,6 +81,23 @@ class CourseCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 18.sp),
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 12.h),
+                  Row(
+                    children: [
+                      Text(
+                        "${AppLocalizations.of(context)!.date}:",
+                        style: TextStyle(fontSize: 18.sp),
+                      ),
+                      SizedBox(width: 6.w),
+                      Text(
+                        _formatDate(courses[index].date),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 18.sp),
+                      ),
+                      Spacer(),
+                      Icon(Icons.date_range_outlined,color:primaryColor,size: 28.sp,),
                     ],
                   ),
                   Row(
@@ -205,5 +222,16 @@ class CourseCard extends StatelessWidget {
         ),
       ],
     );
+  }
+  String _formatDate(String? dateTimeString) {
+    if (dateTimeString == null || dateTimeString.isEmpty) {
+      return "No date";
+    }
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      return DateFormat('yyyy-MM-dd').format(dateTime);
+    } catch (e) {
+      return "Invalid date";
+    }
   }
 }

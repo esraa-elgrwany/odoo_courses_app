@@ -192,6 +192,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stage => 'Stage';
 
   @override
+  String get date => 'Date';
+
+  @override
+  String get deadline => 'Deadline';
+
+  @override
   String get status => 'Status';
 
   @override

@@ -39,6 +39,7 @@ class TaskResult {
     this.userIds,
     this.createUid,
     this.description,
+    this.date,
     this.deadline,
     this.stage});
 
@@ -61,6 +62,7 @@ class TaskResult {
     userIds = json['user_ids'] is List ? List<int>.from(json['user_ids']) : [];*/
     createUid = json['create_uid'] is String ? json['create_uid'] : null;
     description = json['description'] is String ? json['description'] : null;
+    date = json['create_date'] is String ? json['create_date'] : null;
     deadline = json['date_deadline'] is String ? json['date_deadline'] : null;
     stage = json['stage'] is String ? json['stage'] : null;
 
@@ -72,6 +74,7 @@ class TaskResult {
   String? partnerId;
   String? createUid;
   String? description;
+  String? date;
   String? deadline;
   String? stage;
 
@@ -86,6 +89,7 @@ class TaskResult {
     map['partner_id'] = partnerId;
     map['create_uid'] = createUid;
     map['description'] = description;
+    map['create_date']=date;
     map['date_deadline'] = deadline;
     map['stage'] = stage;
     return map;

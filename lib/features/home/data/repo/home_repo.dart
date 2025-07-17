@@ -62,6 +62,7 @@ abstract class HomeRepo {
     int? partnerId,
     int? userId,
     String? description,
+    String? deadline,
   });
   Future<Either<Failures, GetState>> getState({String query = ""});
   Future<Either<Failures, GetStatus>> getStatus({String query = ""});

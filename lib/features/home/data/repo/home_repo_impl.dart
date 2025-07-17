@@ -49,6 +49,7 @@ class HomeRepoImpl implements HomeRepo {
               "age",
               "note",
               "work_status",
+              "create_date",
               "pay_method",
               "grad_image"
             ]
@@ -471,6 +472,7 @@ class HomeRepoImpl implements HomeRepo {
     int? partnerId,
     int? userId,
     String? description,
+    String? deadline,
   }) async {
     try {
       final Map<String, dynamic> fieldsToUpdate = {};
@@ -479,7 +481,7 @@ class HomeRepoImpl implements HomeRepo {
       if (projectId != null) fieldsToUpdate["project_id"] = projectId;
       if (partnerId != null) fieldsToUpdate["partner_id"] = partnerId;
       if (description != null) fieldsToUpdate["description"] = description;
-
+      if (deadline != null) fieldsToUpdate["date_deadline"] = deadline;
       if (userId != null) {
         fieldsToUpdate["user_ids"] = [
           [6, 0, [userId]]

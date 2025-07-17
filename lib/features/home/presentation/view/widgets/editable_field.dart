@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:courses_app/core/utils/styles/colors.dart';
-import 'package:courses_app/features/setting/model_view/setting_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

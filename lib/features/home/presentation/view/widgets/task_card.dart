@@ -2,6 +2,7 @@ import 'package:courses_app/features/home/presentation/view/widgets/icon_badge.d
 import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import '../../../../../core/utils/styles/colors.dart';
 import '../../../../setting/model_view/setting_cubit.dart';
 import '../../view_model/home_cubit.dart';
@@ -84,14 +85,35 @@ class TaskCard extends StatelessWidget{
                     SizedBox(height: 12.h),
                     Row(
                       children: [
-                        Icon(Icons.date_range_outlined,color: primaryColor,size: 24.sp,),
-                        SizedBox(width: 4.w,),
                         Text(
-                            task.deadline ??"No deadline" ,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                            )),
+                          "${AppLocalizations.of(context)!.date}:",
+                          style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          _formatDate(task.date),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 18.sp),
+                        ),
+                        Spacer(),
+                        Icon(Icons.date_range_outlined,color:primaryColor,size: 28.sp,),
+                      ],
+                    ),
+                    SizedBox(height: 12.h),
+                    Row(
+                      children: [
+                        Text(
+                          "${AppLocalizations.of(context)!.deadline}:",
+                          style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          _formatDate(task.deadline),
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 18.sp),
+                        ),
+                        Spacer(),
+                        Icon(Icons.date_range_outlined,color:primaryColor,size: 28.sp,),
                       ],
                     ),
                     SizedBox(height: 12.h),
@@ -124,5 +146,16 @@ class TaskCard extends StatelessWidget{
             )),
       ],
     );
+  }
+  String _formatDate(String? dateTimeString) {
+    if (dateTimeString == null || dateTimeString.isEmpty) {
+      return "No date";
+    }
+    try {
+      DateTime dateTime = DateTime.parse(dateTimeString);
+      return DateFormat('yyyy-MM-dd').format(dateTime);
+    } catch (e) {
+      return "Invalid date";
+    }
   }
 }

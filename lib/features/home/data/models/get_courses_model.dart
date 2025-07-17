@@ -47,6 +47,7 @@ class CoursesResult {
     this.age,
     this.note,
     this.workStatus,
+    this.date,
     this.payMethod,
     this.gradImage,});
 
@@ -69,6 +70,7 @@ class CoursesResult {
     workStatus= json['work_status'] != null && json['work_status'] != false
         ? json['work_status'].toString()
         : null;
+    date = json['create_date'] is String ? json['create_date'] : null;
     payMethod= json['pay_method'] != null && json['pay_method'] != false
         ? json['pay_method'].toString()
         : null;
@@ -90,6 +92,7 @@ class CoursesResult {
   int? age;
   dynamic? note;
   dynamic? workStatus;
+  String? date;
   dynamic? payMethod;
   dynamic? gradImage;
 
@@ -109,6 +112,7 @@ class CoursesResult {
     map['age'] = age;
     map['note'] = note;
     map['work_status'] = workStatus;
+    map['create_date']=date;
     map['pay_method'] = payMethod;
     map['grad_image'] = gradImage;
     return map;

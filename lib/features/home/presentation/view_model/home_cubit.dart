@@ -269,13 +269,14 @@ class HomeCubit extends Cubit<HomeState> {
     int? partnerId,
     int? userId,
     String? description,
+    String? deadline,
   }) async {
     emit(EditTaskLoading());
 
     final ApiManager apiManager = ApiManager();
     final HomeRepo homeRepo = HomeRepoImpl(apiManager);
 
-    final result = await homeRepo.editTask(taskId: taskId,name: name,description: description,
+    final result = await homeRepo.editTask(taskId: taskId,name: name,description: description,deadline: deadline,
     partnerId: partnerId,projectId: projectId,userId: userId);
     result.fold(
           (failure) => emit(EditTaskError(failure)),

@@ -192,6 +192,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get stage => 'المرحلة';
 
   @override
+  String get date => 'التاريخ';
+
+  @override
+  String get deadline => 'تاريخ الانتهاء';
+
+  @override
   String get status => 'الحالة';
 
   @override

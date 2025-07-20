@@ -8,6 +8,7 @@ import 'package:courses_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import '../../../data/models/get_partner_model.dart';
 import '../../../data/models/get_project_model.dart';
 import '../../../data/models/get_user_model.dart';
@@ -34,7 +35,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   var formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
-
+  TextEditingController deadlineController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -121,6 +122,46 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                     text: selectedPartner?.name ??
                                         AppLocalizations.of(context)!.selectPartner)),
                             SizedBox(
+                              height: 16.h,
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2100),
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: primaryColor,
+                                          onPrimary: Colors.white,
+                                          onSurface: Colors.black,
+                                        ),
+                                        dialogBackgroundColor: Colors.white,
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
+                                );
+
+                                if (pickedDate != null) {
+                                  deadlineController.text = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                }
+                              },
+                              child: AbsorbPointer(
+                                child: TextFormItem(
+                                  controller: deadlineController,
+                                  hint: AppLocalizations.of(context)!.deadline,
+                                  maxLine: 1,
+                                  icon: Icons.calendar_today,
+                                  validateTxt: "please select deadline",
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(
                               height: 32.h,
                             ),
                             BlocConsumer<HomeCubit, HomeState>(
@@ -193,6 +234,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                           userId: selectedUser?.id ?? 0,
                                           partnerId: selectedPartner?.id ?? 0,
                                           projectId: selectedProject?.id ?? 0,
+                                          deadline: deadlineController.text
                                         );
                                       }
                                     },
@@ -344,4 +386,5 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     _validatePartnerSelection();
     formKey.currentState!.validate();
   }
+
 }

@@ -144,6 +144,7 @@ class HomeCubit extends Cubit<HomeState> {
     required int projectId,
     required int partnerId,
     required int userId,
+    required String deadline,
     required String description,
   }) async {
     emit(AddTaskLoading());
@@ -154,6 +155,7 @@ class HomeCubit extends Cubit<HomeState> {
         projectId: projectId,
         partnerId: partnerId,
         userId: userId,
+        deadline: deadline,
         description: description);
     result.fold((l) {
       emit(AddTaskError(l));

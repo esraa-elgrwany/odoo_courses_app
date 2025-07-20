@@ -350,6 +350,7 @@ class HomeRepoImpl implements HomeRepo {
       required int projectId,
       required int partnerId,
       required int userId,
+        required String deadline,
       required String description}) async {
     try {
       final Map<String, dynamic> body = {
@@ -362,6 +363,7 @@ class HomeRepoImpl implements HomeRepo {
               "project_id": projectId,
               "partner_id": partnerId,
               "user_ids": [userId],
+              "date_deadline":deadline,
               "description": description
             }
           ],

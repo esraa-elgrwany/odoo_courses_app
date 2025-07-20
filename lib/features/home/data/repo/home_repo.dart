@@ -53,6 +53,7 @@ abstract class HomeRepo {
     required int projectId,
     required int partnerId,
     required int userId,
+    required String deadline,
     required String description,
   });
   Future<Either<Failures, EditTaskModel>> editTask({

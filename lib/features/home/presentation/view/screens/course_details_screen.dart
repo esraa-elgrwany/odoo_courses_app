@@ -244,7 +244,7 @@ class _CourseDetailsScreenState extends State<CourseDetailsScreen> {
                         ),
                       ),
                     ]),
-                SizedBox(height: 12.h,),
+                SizedBox(height: 18.h,),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16),
                   child: Row(

@@ -113,11 +113,7 @@ class _WorkRowState extends State<WorkRow> {
               if (hasChanged)
                 InkWell(
                   onTap: _saveStatus,
-                  child: Icon(
-                    Icons.check,
-                    color: Colors.green,
-                    size: 24,
-                  ),
+                  child: Icon(Icons.check_box_rounded, color: Colors.green, size: 32.sp),
                 ),
             ],
           ),

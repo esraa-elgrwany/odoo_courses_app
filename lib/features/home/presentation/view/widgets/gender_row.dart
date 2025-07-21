@@ -110,7 +110,7 @@ class _GenderRowState extends State<GenderRow> {
               if (hasChanged)
                 InkWell(
                   onTap: _saveGender,
-                  child: Icon(Icons.check, color: Colors.green, size: 24),
+                  child:Icon(Icons.check_box_rounded, color: Colors.green, size: 32.sp),
                 ),
             ],
           ),

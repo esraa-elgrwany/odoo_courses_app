@@ -114,7 +114,7 @@ class _UserRowState extends State<UserRow> {
                         onTap: _saveState,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 8.0),
-                          child: Icon(Icons.check, color: Colors.green, size: 20),
+                          child: Icon(Icons.check_box_rounded, color: Colors.green, size: 32.sp),
                         ),
                       ),
                   ],

@@ -3,6 +3,7 @@ import 'package:courses_app/features/home/data/models/add_task_model.dart';
 import 'package:courses_app/features/home/data/models/delete_course.dart';
 import 'package:courses_app/features/home/data/models/edit_course_model.dart';
 import 'package:courses_app/features/home/data/models/edit_task_model.dart';
+import 'package:courses_app/features/home/data/models/edit_user_model.dart';
 import 'package:courses_app/features/home/data/models/get_courses_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
@@ -509,6 +510,34 @@ class HomeRepoImpl implements HomeRepo {
         return Right(model);
       } else {
         return Left(ServerFailure("Unexpected HTTP Error: ${response.statusCode}"));
+      }
+    } catch (e) {
+      return Left(ServerFailure("Exception: ${e.toString()}"));
+    }
+  }
+
+  @override
+  Future<Either<Failures, EditUserModel>> getEditUsers({String query = ""}) async{
+    try {
+      final Map<String, dynamic> body = {
+        "params":{
+          "model":"project.task",
+          "method":"get_user_ids",
+          "args":[[
+            ["name", "ilike", "%$query%"],
+          ]],
+          "kwargs":{
+
+          }
+        }
+      };
+      Response response = await apiManager.getData(data: body);
+      EditUserModel model = EditUserModel.fromJson(response.data);
+      if (response.statusCode == 200) {
+        return Right(model);
+      } else {
+        return Left(
+            ServerFailure("Unexpected HTTP Error: ${response.statusCode}"));
       }
     } catch (e) {
       return Left(ServerFailure("Exception: ${e.toString()}"));

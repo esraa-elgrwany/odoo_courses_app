@@ -1,17 +1,18 @@
+import 'package:courses_app/features/home/data/models/edit_user_model.dart';
+import 'package:courses_app/features/home/presentation/view/widgets/edit_users_dialog.dart';
 import 'package:courses_app/features/home/presentation/view/widgets/user_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/styles/colors.dart';
-import '../../../data/models/get_user_model.dart';
 import '../../view_model/home_cubit.dart';
 
 class UserRow extends StatefulWidget{
   final String label;
   final String iconPath;
   final String initialValue;
-  final void Function(UserResult) onSave;
+  final void Function(EditUserResult) onSave;
 
   const UserRow({
     Key? key,
@@ -27,7 +28,7 @@ class UserRow extends StatefulWidget{
 
 class _UserRowState extends State<UserRow> {
   late String selectedUserName;
-  UserResult? selectedUser;
+  EditUserResult? selectedUser;
   bool hasChanged = false;
 
   @override
@@ -40,9 +41,9 @@ class _UserRowState extends State<UserRow> {
     showDialog(
       context: context,
       builder: (context) => BlocProvider(
-        create: (context) => HomeCubit()..getUsers(),
-        child: UserDialog(
-          onUserSelected: (UserResult newUser) {
+        create: (context) => HomeCubit()..getEditUsers(),
+        child: EditUsersDialog(
+          onUserSelected: (EditUserResult newUser) {
             setState(() {
               selectedUser = newUser;
               selectedUserName = newUser.name??"no name";

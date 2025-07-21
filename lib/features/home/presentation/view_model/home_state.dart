@@ -186,3 +186,17 @@ class EditTaskError extends HomeState {
   final Failures failure;
   EditTaskError(this.failure);
 }
+
+class GetEditUserLoading extends HomeState {}
+
+class GetEditUserSuccess extends HomeState {
+  EditUserModel model;
+
+  GetEditUserSuccess(this.model);
+}
+
+class GetEditUserError extends HomeState {
+  Failures failures;
+
+  GetEditUserError(this.failures);
+}

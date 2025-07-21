@@ -7,6 +7,7 @@ import '../../view_model/home_cubit.dart';
 
 class UserDialog extends StatefulWidget{
   final Function(UserResult customer) onUserSelected;
+
   const UserDialog({super.key,required this.onUserSelected});
 
   @override

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:courses_app/features/home/data/models/add_course_model.dart';
 import 'package:courses_app/features/home/data/models/edit_course_model.dart';
 import 'package:courses_app/features/home/data/models/edit_task_model.dart';
+import 'package:courses_app/features/home/data/models/edit_user_model.dart';
 import 'package:courses_app/features/home/data/models/get_know_us_model.dart';
 import 'package:courses_app/features/home/data/models/get_partner_model.dart';
 import 'package:courses_app/features/home/data/models/get_status.dart';
@@ -28,6 +29,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<PartnerResult> partners = [];
   List<ProjectResult> projects = [];
   List<UserResult> users = [];
+  List<EditUserResult> editUsers = [];
   List<StateResult> states = [];
   List<StatusResult> status = [];
   List<KnowUsResult> knowUs = [];
@@ -287,5 +289,17 @@ class HomeCubit extends Cubit<HomeState> {
             getTasks();
           }
     );
+  }
+  getEditUsers({String query = ""}) async {
+    emit(GetEditUserLoading());
+    ApiManager apiManager = ApiManager();
+    HomeRepo homeRepo = HomeRepoImpl(apiManager);
+    var result = await homeRepo.getEditUsers(query: query);
+    result.fold((l) {
+      emit(GetEditUserError(l));
+    }, (r) {
+      editUsers = r.result ?? [];
+      emit(GetEditUserSuccess(r));
+    });
   }
 }

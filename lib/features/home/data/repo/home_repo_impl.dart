@@ -72,7 +72,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failures, GetTasksModel>> getTasks({String query = "",String searchCat=""}) async {
+  Future<Either<Failures, GetTasksModel>> getTasks({String query = "",String searchCat="name"}) async {
     try {
       final Map<String, dynamic> body = {
         "params": {

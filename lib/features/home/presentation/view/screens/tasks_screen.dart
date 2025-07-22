@@ -108,20 +108,21 @@ class _TaskScreenState extends State<TaskScreen> {
                           searchBy = value;
                           if (value == AppLocalizations.of(context)!.name) {
                             searchCategory = "name";
-                          } else if (value ==AppLocalizations.of(context)!.user) {
+                          } else if (value == AppLocalizations.of(context)!.user) {
                             searchCategory = "user_ids";
                             _showUserSelectionDialog();
-                          } else if (value ==AppLocalizations.of(context)!.project) {
+                          } else if (value == AppLocalizations.of(context)!.project) {
                             searchCategory = "project_id";
                             _showProjectSelectionDialog();
-                          } else if (value ==AppLocalizations.of(context)!.partner) {
+                          } else if (value == AppLocalizations.of(context)!.partner) {
                             searchCategory = "partner_id";
                             _showPartnerSelectionDialog();
-                          } else if (value ==AppLocalizations.of(context)!.description) {
+                          } else if (value == AppLocalizations.of(context)!.description) {
                             searchCategory = "description";
                           }
                         });
                       },
+
                       dropdownColor: Colors.grey[100],
                       iconEnabledColor: primaryColor,
                       style: TextStyle(fontSize: 16.sp, color: Colors.black),
@@ -244,6 +245,7 @@ class _TaskScreenState extends State<TaskScreen> {
             setState(() {
               this.selectedPartner = selectedPartner;
               searchCategory = "partner_id";
+              searchController.clear();
             });
             context.read<HomeCubit>().getTasks(
                   query: selectedPartner.name ?? "",
@@ -265,6 +267,7 @@ class _TaskScreenState extends State<TaskScreen> {
             setState(() {
               this.selectedProject = selectedProject;
               searchCategory = "project_id";
+              searchController.clear();
             });
             context.read<HomeCubit>().getTasks(
                   query: selectedProject.name ?? "",
@@ -287,6 +290,7 @@ class _TaskScreenState extends State<TaskScreen> {
               setState(() {
                 selectedUser = user;
                 searchCategory = "user_ids";
+                searchController.clear();
               });
               context.read<HomeCubit>().getTasks(
                     query: user.name ?? "",
